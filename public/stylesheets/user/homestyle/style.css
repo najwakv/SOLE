@@ -846,7 +846,7 @@
     line-height: 24px;
   }
   .product .desc h3 a {
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
   }
   .product .desc .price {
     letter-spacing: 2px;

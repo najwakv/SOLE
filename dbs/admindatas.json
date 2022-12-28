@@ -1,0 +1,14 @@
+[{
+  "_id": {
+    "$oid": "6398699fd591ddaf534facd4"
+  },
+  "firstName": "Najwa",
+  "lastName": "Kv",
+  "email": "admin@gmail.com",
+  "phone": {
+    "$numberLong": "8138053029"
+  },
+  "password": "$2b$10$Ea5RYYRLIMZMDV0KakLsp.FEhZiUyL7EYXZXWbCsRVYg2hD80ylGm",
+  "status": "Unblocked",
+  "__v": 0
+}]

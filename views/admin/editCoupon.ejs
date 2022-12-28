@@ -1,0 +1,58 @@
+
+
+
+<%-include('../admin/layout/admin-header-layout.ejs') -%>
+<div class="col-lg">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">Edit Coupon</div>
+            <hr>
+            <form action="/admin/updateCoupon/<%= coupon._id %>" method="post" enctype="multipart/form-data">
+                
+                <div class="form-group">
+                    <label for="input-4">Coupon Code</label>
+                    <input class="form-control" id="input-4" type="text" placeholder="Coupon Code"
+                        value="<%= coupon.couponCode %>" required name="couponCode">
+                </div>
+
+                <div class="form-group">
+                    <label for="input-5">Discount Percentage</label>
+                    <input class="form-control" id="input-5" type="number" placeholder="Discount"
+                        value="<%= coupon.discount %>" required name="discount">
+                </div>
+
+                <div class="form-group">
+                    <label for="input-5">Minimum Purchase Amount</label>
+                    <input class="form-control" id="input-5" type="number" placeholder="Minimum Purchase Amount"
+                        value="<%= coupon.minimumAmount %>" required name="minimumAmount">
+                </div>
+                
+                <div class="form-group">
+                    <label for="input-5">Maximum Discount</label>
+                    <input class="form-control" id="input-5" type="number" placeholder="Maximum Discount"
+                        value="<%= coupon.maximumDiscount %>" required name="maximumDiscount">
+                </div>
+
+                <div class="form-group">
+                    <label for="input-5">Expiry Date</label>                    
+                    <input class="form-control" id="input-5" type="date" placeholder="Expiry Date"
+                        value="<%= coupon.expiryDate %>" required name="expiryDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="input-5">No of Times</label>                    
+                    <input class="form-control" id="input-5" type="number" placeholder="No of Times coupons can be used"
+                        value="<%= coupon.times %>" required name="times">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success px-5"> Update Coupon</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<%-include('../admin/layout/admin-footer-layout.ejs') -%>

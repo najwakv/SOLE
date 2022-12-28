@@ -85,16 +85,15 @@
                     </div>
                     <div class="col-md-6 col-xs-6 text-center menu-1">
                         <ul>
-                            <li><a href="about.html">Homes</a></li>
-                            <li class="has-dropdown">
-                                <a href="product.html">Shop</a>
+                            <li><a href="/">Home</a></li>
+                            <li class="has-dropdown"><a href="">Shop</a>
                                 <ul class="dropdown">
-                                    <li><a href="single.html">All</a></li>
-                                    <li><a href="single.html">Cardigans</a></li>
-                                    <li><a href="single.html">Winter Collection</a></li>
-                                    <li><a href="single.html">Summer Collection</a></li>
-                                    <li><a href="single.html">Accessories</a></li>
-                                </ul>
+									<% category.forEach(function(x) { %>
+										<li><a href="/categoryProductspage/<%= x._id %>/<%= x.category %>">
+												<%= x.category%>
+											</a></li>
+									<% }) %>
+								</ul>
                             </li>
                             <li><a href="about.html">About</a></li>
                             <li><a href="contact.html">Contact</a></li>
@@ -121,13 +120,13 @@
                                 <ul class="dropdown">
                                     <% if(!login) { %>
                                         <li><a href="/signin">Login</a></li>
-                                    <% } %>
-                                    <% if(login) { %>
-                                        <li><a href="/profile">
-                                            <%= user %>
-                                        </a></li>
-                                        <li><a href="/logout">Logout</a></li>
-                                    <% } %>
+                                        <% } %>
+                                            <% if(login) { %>
+                                                <li><a href="/profile">
+                                                        <%= user %>
+                                                    </a></li>
+                                                <li><a href="/logout">Logout</a></li>
+                                                <% } %>
                                 </ul>
                             </li>
                         </ul>

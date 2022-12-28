@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Objectid = mongoose.Types.ObjectId
 const productSchema = new mongoose.Schema({
     productName: {
         type: String,
@@ -17,17 +17,23 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
-        type: String,
-        required: true
+    category: {
+        type: Objectid,
+        required: true,
+        ref:'CategoryData'
     },
-    soldCount: {
-        type: Number,
+    image: {
+        type: [String],
         required: true
     },
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    status:{
+        type: Boolean,
+        default: false
+    },
+    
 });
 module.exports = ProductModel = mongoose.model('ProductData', productSchema);

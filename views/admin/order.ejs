@@ -1,0 +1,93 @@
+<%- include('../admin/layout/admin-header-layout.ejs') -%>
+
+    <div class="col-lg">
+        <div class="card">
+            <div class="card-body ">
+                <div style="display: flex; justify-content: space-between;">
+                    <h5 class="card-title">Orders</h5>
+                </div>
+                <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div> -->
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Index</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Order Status</th>
+                            </tr>
+                        </thead>
+                        <br>
+                        <tbody>
+                            <% orders.forEach(function(y){ %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= index++ %>
+                                    </th>
+                                    <td>
+                                        <%= y.customerName %>
+                                    </td>
+                                    <td>
+                                        <%= y.address %>
+                                    </td>
+                                    <td>
+                                        <%= y.productName %>
+                                    </td>
+
+                                    <td>
+                                        <%=y.updatedAt.toLocaleDateString()%>
+                                    </td>
+
+                                    <td>
+                                        <select  id="OStatus<%= index%>" class="form-select" style="width: fit-content;" aria-label="Default select example" onchange="statusOrder('<%= y._id%>','<%=index%>')">
+                                        <option selected  style="background-color: white;" ><%=y.orderStatus%></option>
+                                        <option value="processing" style="background-color: white;" >processing</option>
+                                        <option value="Delivered"style="background-color: white;">placed</option>
+                                        <option value="Shipped"style="background-color: white;">Shipped</option> 
+                                        <option value="Delivered"style="background-color: white;">Delivered</option>
+                                        </select>
+                                    </td>                                      
+
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../admin/layout/admin-footer-layout.ejs') -%>
+
+    <script>
+  
+        function statusOrder(orderId, index) {
+          const status = $(`#OStatus${index}`).val()
+          console.log(orderId, status,'hiii');
+          $.ajax({
+            url: '/admin/status_change',
+            data: {
+              orderId,
+              status
+            },
+            method: 'post',
+            success: ((response) => {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Order Changed',
+                customClass: 'swal-wide',
+                showConfirmButton: false,
+                timer: 1000
+              }).then(()=>{
+                location.reload()
+              })
+              
+            })
+          })
+      
+        }
+      </script>

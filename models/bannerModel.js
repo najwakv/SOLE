@@ -13,10 +13,10 @@ const bannerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    status: {
-        type: String,
-        default: 'Active'
-    }
+    status:{
+        type: Boolean,
+        default: false
+    },
 });
 
 module.exports = BannerModel = mongoose.model('BannerData', bannerSchema);

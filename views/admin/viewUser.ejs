@@ -1,0 +1,63 @@
+<%- include('../admin/layout/admin-header-layout.ejs') -%>
+
+  <div class="col-lg">
+    <div class="card">
+      <div class="card-body">
+        <div style="display: flex; justify-content: space-between;">
+          <h5 class="card-title">Users</h5>
+
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Index</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">ACtions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(function(user){ %>
+                <tr>
+                  <th scope="row">
+                    <%= index++ %>
+                  </th>
+                  <td>
+                    <%= user.firstName %>
+                  </td>
+                  <td>
+                    <%= user.lastName %>
+                  </td>
+                  <td>
+                    <%= user.email %>
+                  </td>
+                  <td>
+                    <%= user.phone %>
+                  </td>
+                  
+                  <td>
+                    <% if (user.status=="Blocked" ) { %>
+                      <form action="/admin/unblockUser/<%= user._id %> " method="post">
+                        <button type="submit" class="btn btn-success" style="width: 100px;"> UnBlock</button>
+                      </form>
+                      <% } else { %>
+                        <form action="/admin/blockUser/<%= user._id %> " method="post">
+                          <button type="submit" class="btn btn-danger" style="width: 100px;">
+                            Block</button>
+                        </form>
+                        <% } %>
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../admin/layout/admin-footer-layout.ejs') -%>

@@ -5,7 +5,10 @@ const UserModel = require('../models/userModel');
 const AdminModel = require('../models/adminModel');
 const ProductModel = require('../models/productModel');
 const BannerModel = require('../models/bannerModel');
+const CategoryModel = require('../models/categoryModel');
 const TestimonyModel = require('../models/testimonyModel');
+const CouponModel = require('../models/couponModel');
+
 
 
 var FirstName;
@@ -42,15 +45,17 @@ module.exports = {
     home: async (req, res) => {
         // res.send("You just created a User ...!!!");
         if (req.session.userLogin) {
-            const products = await ProductModel.find()
-            const banners = await BannerModel.find()
+            const products = await ProductModel.find({ status: false }).sort({ date: -1 }).limit(6)
+            const banners = await BannerModel.find({ status: false })
             const testimony = await TestimonyModel.find()
-            res.render("user/home", { login: true, user: req.session.user, products, banners, testimony });
+            const category =await CategoryModel.find({ status: false })
+            res.render("user/home", { login: true, user: req.session.user, products, banners, testimony, category });
         } else {
-            const products = await ProductModel.find()
-            const banners = await BannerModel.find()
+            const products = await ProductModel.find({ status: false }).sort({ date: -1 }).limit(6)
+            const banners = await BannerModel.find({ status: false })
             const testimony = await TestimonyModel.find()
-            res.render('user/home', { login: false, products, banners, testimony });
+            const category =await CategoryModel.find({ status: false })
+            res.render('user/home', { login: false, products, banners, testimony, category });
         }
     },
     //   SIGNUP
@@ -84,7 +89,8 @@ module.exports = {
         }
         else {
             console.log("mail in use");
-            res.render('user/signin');
+            req.session.signupError = true;
+            res.redirect('/signup');
         }
     },
     //verifiation
@@ -140,50 +146,174 @@ module.exports = {
             res.render('user/otp');
         });
     },
-    //   END SIGNUP
-
     //sign in
     login: async (req, res) => {
         const { email, password } = req.body;
-        const user = await UserModel.findOne({ $and: [{ email: email }, { status: "Unblocked" }] });
-        if (!user) {
+        const userexist = await UserModel.findOne({ email: email });
+        if (!userexist) {
+            req.session.emailError = true
             return res.redirect('/signin');
+        }else{
+            console.log('entered block');
+            const user = userexist.status
+            console.log(user);
+            if(user =='Blocked'){
+                console.log('blocked');
+                req.session.blockError = true
+                return res.redirect('/signin');
+            }
         }
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, userexist.password);
         if (!isMatch) {
+            req.session.passwordError = true
             return res.redirect('/signin');
         }
-        req.session.user = user.firstName
-        req.session.userId = user._id
+        req.session.user = userexist.firstName
+        req.session.userId = userexist._id
         req.session.userLogin = true;
         res.redirect('/');
     },
 
     signin: (req, res) => {
         if (!req.session.userLogin) {
-            res.render('user/signin');
+            console.log('sign in');
+            emailError = req.session.emailError
+            passwordError = req.session.passwordError
+            blockError = req.session.blockError
+            res.render('user/signin',{emailError, passwordError, blockError});
+            req.session.destroy();
         } else {
             res.redirect('/')
         }
     },
 
-    //forgot password
-    forgotpassword:(req,res)=>{
-        res.render('user/forgotpassword')
+    signup: (req, res) => {
+        signupError = req.session.signupError
+        res.render('user/signup', { signupError });
+        req.session.destroy()
     },
-    
+//forgot password start
+    forgotpassword: (req, res) => {
+        console.log('got forgot password');
+        res.render('user/forgotpassword');
+    },
+
+    resetpassword: async (req, res) => {
+        console.log('entered resetpassword');
+        const userEmail = req.body;
+        req.session.email = userEmail;
+        console.log(userEmail);
+        console.log('got user email');
+        const user = await UserModel.findOne({ $and: [{ email: userEmail.email }, { status: "Unblocked" }] });
+        console.log('found user');
+        if (!user) {
+            return res.redirect('/signin');
+        } else {
+            // mail content
+            var mailOptions = {
+                to: req.body.email,
+                subject: "Otp for registration is: ",
+                html: "<h3>OTP for account verification is </h3>" + "<h1 style='font-weight:bold;'>" + otp + "</h1>" // html body
+            };
+            console.log('mail generated');
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: %s', info.messageId);
+                console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                console.log('mail send');
+                res.render('user/passwordotp');
+                console.log('got otp page');
+            });
+        }
+    },
+
+    verifypasswordotp: (req, res) => {
+        console.log('setting new password');
+        if (req.body.otp == otp) {
+            console.log('correct otp');
+            res.render('user/newpassword');
+        } else {
+            console.log('incorrect otp');
+            res.render('user/passwordotp');
+        }
+        // res.render('user/newpassword');
+    },
+
+    settingpassword: async (req, res) => {
+        Pass1 = req.body.password1;
+        Pass2 = req.body.password2;
+        console.log(Pass1);
+        console.log(Pass2);
+        if (Pass1 === Pass2) {
+
+            pass = await bcrypt.hash(Pass2, 10)
+            console.log('password :' + pass);
+
+            console.log('checked password');
+            console.log(req.session.email);
+            existUser = req.session.email;
+            const updateUser = await UserModel.updateOne({ email: existUser.email }, { $set: { password: pass } });
+            console.log(updateUser);
+            res.redirect('/signin');
+
+        } else {
+            console.log('incorrect pass');
+            res.render('user/newpassword');
+        }
+        // console.log('redirect to signin page');
+
+    },
+//forgot password end
+
     // LOG OUT
     logout: (req, res) => {
         req.session.destroy()
         res.redirect('/');
     },
-    //otp page
-    viewotppage: (req,res)=>{
-        res.render('user/passwordotp')
+    //PRODUCT
+    //all product
+    allproductpage: async(req,res) => {
+        const products = await ProductModel.find({ status: false }).sort({ date: -1 });
+        const category = await CategoryModel.find()
+        if (req.session.userLogin) {
+            res.render('user/allProduct', { login: true, user: req.session.user, products, category })
+        }else {
+            res.render('user/allProduct', { login: false, products, category})
+    
+        }
     },
-    //otp verification
-    verifypasswordotp:(req,res)=>{
-        res.render('user/newpassword');
+    categoryproductpage: async(req,res) => {
+        console.log('reached category');
+        if (req.session.userLogin) {
+            id = req.params.id
+            console.log(id);
+            console.log('got id');
+            const name = req.params.category
+            console.log(name);
+            console.log('got category');
+            const category = await CategoryModel.find({ status: false })
+            console.log(category);
+            const products = await ProductModel.find({ category:name}).populate('category','category')
+            console.log(products);
+            res.render('user/categoryProducts', { login: true, user: req.session.user, name, products, category })
+          }
+          else {
+            id = req.params.id
+            console.log(id);
+            console.log('got id');
+            const name = req.params.category
+            console.log(name);
+            console.log('got category');
+            const category = await CategoryModel.find({ status: false })
+            console.log(category);
+            const products = await ProductModel.find({$and: [{status: false}, {category:id}]}).populate('category','category')
+            console.log(products);
+            res.render('user/categoryProducts', { login: false, name, products, category })
+            
+          }
     }
 }
 

@@ -1,0 +1,109 @@
+<%- include('../admin/layout/admin-header-layout.ejs') -%>
+
+    <div class="col-lg">
+        <div class="card">
+            <div class="card-body ">
+                <div style="display: flex; justify-content: space-between;">
+                    <h5 class="card-title">Products</h5>
+                    <div>
+                        <form action="/admin/addproductpage" method="get">
+                            <button class="btn btn-success me-md-2" type="submit">Add Product</button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Index</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% products.forEach(function(product){ %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= index++ %>
+                                    </th>
+
+                                    <td>
+                                        <%= product.productName %>
+                                    </td>
+                                    <td>
+                                        <%= product.description %>
+                                    </td>
+                                    <td>
+                                        <%= product.price %>
+                                    </td>
+                                    <td>
+                                        <%= product.size %>
+                                    </td>
+                                    <td>
+                                        <%= product.date %>
+                                    </td>
+                                    <td>
+                                        <%= product.category.category %>
+                                    </td>
+                                    <td><img src='/images/cardigans/<%= product.image[0] %>' alt=""
+                                        style="height: 50px; width: 60px;"></td>
+
+                                    <td><a class="btn btn-primary" href="/admin/editproductpage/<%= product._id %>"
+                                        role="button" style="width: 75px;"><i class="bi bi-pen-fill"></i></a>
+                                        <br>
+                                        <br>
+                                        <!-- <form action="/admin/deleteproduct/<%= product._id %>" method="post">
+                          <button type="submit" class="btn  btn-danger" style="width: 100px;" 
+                          onclick="return confirm('Are you sure you want to delete ?')"><i
+                          class="bi bi-trash-fill"></i></button>
+                        </form> -->
+                                    <!-- </td>
+                                    <td> -->
+                                        <% if(product.status){%>
+                                            <form action="/admin/productUnblock/<%= product._id %> " method="post">
+                                                <button type="submit" class="badge badge-danger" style="width: 75px; height: 38px;">
+                                                    List</button>
+                                            </form>
+                                            <%}else{%>
+                                                <form action="/admin/productBlock/<%= product._id %> " method="post">
+                                                    <button type="submit" class="badge badge-success"
+                                                        style="width: 75px; height: 38px;"> Unlist</button>
+                                                </form>
+                                            <%}%>
+                                    </td>
+                                </tr>
+                                <%})%>
+
+                                    <section class="d-flex justify-content-center mt-2">
+                                        <% if(hasPreviousPage){ %>
+                                            <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black"
+                                                class="text-center" href="/admin/allproduct?page=<%= PreviousPage %>"><i
+                                                    class="fa fa-chevron-left" aria-hidden="true"></i></a>
+                                            <% } %>
+                                                <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black; border: 1px solid black;"
+                                                    href="/admin/allproduct?page=<%= page %>">
+                                                    <%= page %>
+                                                </a>
+                                                <% if(hasNextPage) { %>
+                                                    <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black;"
+                                                        href="/admin/allproduct?page=<%=  page+1 %>"><i
+                                                            class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                                                    <% } %>
+
+                                    </section>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../admin/layout/admin-footer-layout.ejs') -%>

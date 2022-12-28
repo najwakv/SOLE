@@ -1,0 +1,94 @@
+<%- include('../admin/layout/admin-header-layout.ejs') -%>
+
+    <div class="col-lg">
+        <div class="card">
+            <div class="card-body ">
+                <div style="display: flex; justify-content: space-between;">
+                    <h5 class="card-title">Coupon</h5>
+                    <div>
+                        <form action="/admin/addCouponPage" method="get">
+                            <button class="btn btn-success me-md-2" type="submit">Add Coupon</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div> -->
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Index</th>
+                                <th scope="col">Coupon Code</th>
+                                <th scope="col">Discount Percentage</th>
+                                <th scope="col">Minimum Purchase Amount</th>
+                                <th scope="col">Maximum Discount</th>
+                                <th scope="col">Created Date</th>
+                                <th scope="col">Expiry Date</th>
+                                <th scope="col">No of Times</th>
+                                <th scope="col">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <br>
+                        <tbody>
+                            <% coupons.forEach(function(coupon){ %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= index++ %>
+                                    </th>
+                                    <td>
+                                        <%= coupon.couponCode %>
+                                    </td>
+                                    <td>
+                                        <%= coupon.discount %>
+                                    </td>
+                                    <td>
+                                        <%= coupon.minimumAmount %>
+                                    </td>
+                                    <td>
+                                        <%= coupon.maximumDiscount %>
+                                    </td>
+                                    <td>
+                                        <%= coupon.createdDate %>
+                                    </td>
+                                    <td>
+                                        <%= coupon.expiryDate %>
+                                    </td>
+                                    <td>
+                                        <%= coupon.times %>
+                                    </td>
+                                    <td>
+                                        <form action="/admin/deleteCoupon/<%= coupon._id %>" method="post">
+                                            <button type="submit" class="btn  btn-danger"  style="width: 75px; height: 38px;;"
+                                                onclick="return confirm('Are you sure you want to delete ?')"><i
+                                                    class="bi bi-trash-fill"></i></button>
+                                        </form>
+                                        <br>
+                                    <!-- </td>
+                                    <td> -->
+                                        <% if(coupon.status){%>
+                                            <form action="/admin/couponUnblock/<%= coupon._id %> " method="post">
+                                                <button type="submit" class="badge badge-danger" style="width: 75px; height: 38px;">
+                                                    List</button>
+                                            </form>
+                                            <%}else{%>
+                                                <form action="/admin/couponBlock/<%= coupon._id %> " method="post">
+                                                    <button type="submit" class="badge badge-success"
+                                                        style="width: 78px; height: 38px;"> Unlist</button>
+                                                </form>
+                                            <%}%>
+                                    <!-- </td>
+                                    <td> -->
+                                        <br>
+                                        <a class="btn btn-primary" href="/admin/editcouponpage/<%= coupon._id %> "
+                                        role="button" style="width: 75px; height: 38px;"><i class="bi bi-pen-fill"></i></a>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../admin/layout/admin-footer-layout.ejs') -%>
