@@ -175,7 +175,7 @@ module.exports = {
         const page = parseInt(req.query.page) || 1;
         const items_per_page = 5;
         const totalproducts = await ProductModel.find().countDocuments();
-        const products = await ProductModel.find().sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page);
+        const products = await ProductModel.find().populate('category','category').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page);
         // console.log(products);
         res.render('admin/viewProduct', {
             products, index: 1, admin: req.session.admin, page,

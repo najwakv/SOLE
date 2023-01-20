@@ -48,13 +48,13 @@ module.exports = {
             const products = await ProductModel.find({ status: false }).sort({ date: -1 }).limit(6)
             const banners = await BannerModel.find({ status: false })
             const testimony = await TestimonyModel.find()
-            const category =await CategoryModel.find({ status: false })
+            const category = await CategoryModel.find({ status: false })
             res.render("user/home", { login: true, user: req.session.user, products, banners, testimony, category });
         } else {
             const products = await ProductModel.find({ status: false }).sort({ date: -1 }).limit(6)
             const banners = await BannerModel.find({ status: false })
             const testimony = await TestimonyModel.find()
-            const category =await CategoryModel.find({ status: false })
+            const category = await CategoryModel.find({ status: false })
             res.render('user/home', { login: false, products, banners, testimony, category });
         }
     },
@@ -153,11 +153,11 @@ module.exports = {
         if (!userexist) {
             req.session.emailError = true
             return res.redirect('/signin');
-        }else{
+        } else {
             console.log('entered block');
             const user = userexist.status
             console.log(user);
-            if(user =='Blocked'){
+            if (user == 'Blocked') {
                 console.log('blocked');
                 req.session.blockError = true
                 return res.redirect('/signin');
@@ -180,7 +180,7 @@ module.exports = {
             emailError = req.session.emailError
             passwordError = req.session.passwordError
             blockError = req.session.blockError
-            res.render('user/signin',{emailError, passwordError, blockError});
+            res.render('user/signin', { emailError, passwordError, blockError });
             req.session.destroy();
         } else {
             res.redirect('/')
@@ -192,7 +192,7 @@ module.exports = {
         res.render('user/signup', { signupError });
         req.session.destroy()
     },
-//forgot password start
+    //forgot password start
     forgotpassword: (req, res) => {
         console.log('got forgot password');
         res.render('user/forgotpassword');
@@ -266,7 +266,7 @@ module.exports = {
         // console.log('redirect to signin page');
 
     },
-//forgot password end
+    //forgot password end
 
     // LOG OUT
     logout: (req, res) => {
@@ -275,17 +275,17 @@ module.exports = {
     },
     //PRODUCT
     //all product
-    allproductpage: async(req,res) => {
+    allproductpage: async (req, res) => {
         const products = await ProductModel.find({ status: false }).sort({ date: -1 });
         const category = await CategoryModel.find()
         if (req.session.userLogin) {
             res.render('user/allProduct', { login: true, user: req.session.user, products, category })
-        }else {
-            res.render('user/allProduct', { login: false, products, category})
-    
+        } else {
+            res.render('user/allProduct', { login: false, products, category })
+
         }
     },
-    categoryproductpage: async(req,res) => {
+    categoryproductpage: async (req, res) => {
         console.log('reached category');
         if (req.session.userLogin) {
             id = req.params.id
@@ -296,11 +296,11 @@ module.exports = {
             console.log('got category');
             const category = await CategoryModel.find({ status: false })
             console.log(category);
-            const products = await ProductModel.find({ category:name}).populate('category','category')
+            const products = await ProductModel.find({ category: name }).populate('category', 'category')
             console.log(products);
             res.render('user/categoryProducts', { login: true, user: req.session.user, name, products, category })
-          }
-          else {
+        }
+        else {
             id = req.params.id
             console.log(id);
             console.log('got id');
@@ -309,12 +309,71 @@ module.exports = {
             console.log('got category');
             const category = await CategoryModel.find({ status: false })
             console.log(category);
-            const products = await ProductModel.find({$and: [{status: false}, {category:id}]}).populate('category','category')
+            const products = await ProductModel.find({ $and: [{ status: false }, { category: id }] }).populate('category', 'category')
             console.log(products);
             res.render('user/categoryProducts', { login: false, name, products, category })
-            
+
+        }
+    },
+    profile: async (req, res) => {
+        if (req.session.userLogin) {
+            const id = req.session.userId;
+            const userdetails = await UserModel.findById({ _id: id })
+            const category = await CategoryModel.find()
+            res.render('user/profile', { login: true, user: req.session.user, userdetails, category })
+        } else {
+            res.redirect('/signin')
+        }
+    },
+    editprofilepage: async (req, res) => {
+          if (req.session.userLogin) {
+            const id = req.params.id
+            let profile = await UserModel.findById({ _id: id })
+            const category = await CategoryModel.find()
+            res.render('user/editProfile', { login: true, user: req.session.user, profile, category })
+          } else {
+            res.redirect('/signin')
+    
           }
-    }
+      },
+
+      updateProfile: async (req, res) => {
+          if (req.session.userLogin) {
+            const { firstName, lastName, email, phone } = req.body;
+    
+            let details = await UserModel.findOneAndUpdate({ _id: req.params.id }, { $set: { firstName, lastName, email, phone } });
+            await details.save()
+              .then(() => {
+                res.redirect('/profile')
+              })
+          }
+          else {
+            res.redirect('/signin')
+          }
+      },
+      search: async (req,res) => {
+        const category = await CategoryModel.find()
+        if (req.session.userLogin) {
+            res.render('user/search', { login: true, user: req.session.user, category })
+        } else {
+            res.render('user/search',{login: false, category})
+        }
+      },
+      singleProductpage: async (req, res) => {
+          if(req.session.userLogin) {
+            const product = await ProductModel.findById({ _id: req.params.id })
+            console.log(product);
+            id = req.params.id
+            const category = await CategoryModel.find()
+            res.render('user/singleProduct', { login: true, user: req.session.user, product, category })
+          }else {
+            const product = await ProductModel.findById({ _id: req.params.id })
+            console.log(product);
+            id = req.params.id
+            const category = await CategoryModel.find()
+            res.render('user/singleProduct', { login: false, user: req.session.user, product, category })
+          }
+      },    
 }
 
 
