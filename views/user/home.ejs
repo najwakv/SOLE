@@ -18,7 +18,7 @@
 											<p>
 												<%= x.description %>
 											</p>
-											<p><a href="/allproductpage" class="btn btn-primary btn-outline btn-lg">Shop Now</a></p>
+											<p><a href="/allProductPage" class="btn btn-primary btn-outline btn-lg">Shop Now</a></p>
 										</div>
 									</div>
 								</div>
@@ -49,7 +49,8 @@
 									style="background-image:url('/images/cardigans/<%= x.image[0] %>')">
 									<div class="inner">
 										<p>
-											<!-- <a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a> -->
+											<!-- <a class="icon" onclick="addtoWishlist('<%=x._id %>')"><i class="bi bi-heart-fill"></i></a>
+											<a href="single.html" class="icon" ><i class="icon-shopping-cart"></i></a> -->
 											<a href="/singleProduct/<%= x._id %>" class="icon"><i class="icon-eye"></i></a>
 										</p>
 									</div>

@@ -25,7 +25,7 @@
 
 	//////////////////////////////////////////////////////
 	 -->
-
+     
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content="" />
     <meta property="og:image" content="" />
@@ -99,7 +99,7 @@
                             <li class="has-dropdown"><a href="">Shop</a>
                                 <ul class="dropdown">
                                     <% category.forEach(function(x) { %>
-                                        <li><a href="/categoryProductspage/<%= x._id %>/<%= x.category %>">
+                                        <li><a href="/categoryProductsPage/<%= x._id %>/<%= x.category %>">
                                                 <%= x.category%>
                                             </a></li>
                                         <% }) %>
@@ -156,7 +156,7 @@
                 <div class="row gutters-sm">
                     <div class="col-md-4 mb-3">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" style="height: 236px;">
                                 <div class="d-flex flex-column align-items-center text-center">
                                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                         class="rounded-circle" width="150">
@@ -175,26 +175,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="card mt-3">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <i class="bi bi-cart-check-fill"></i>
-                  <h6 class="mb-0">Orders</h6>
-                  <span class="text-secondary">@arctic</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <i class="bi bi-folder-plus"></i>
-                  <h6 class="mb-0">Saved address</h6>
-                  <span class="text-secondary">arctic</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <i class="bi bi-person-video3"></i>
-                  <h6 class="mb-0">User data</h6>
-                  <span class="text-secondary">@arctic</span>
-                </li>
-
-              </ul>
-            </div> -->
+                        
                     </div>
                     <div class="col-md-8" style="font-size: 16px;">
                         <div class="card mb-3">
@@ -296,8 +277,3 @@
         <script src="/javascripts/user/homejs/main.js"></script>
 
 
-        <!-- Payment  -->
-        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-        <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> -->
-        <script src="/javascripts/user/payment/jQuery.js"></script>

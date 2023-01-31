@@ -26,8 +26,13 @@ const couponSchema = new mongoose.Schema({
         type: Date,
         required:true
     },
+    limit: {
+        type: Number,
+        required: true
+    },
     times: {
         type: Number,
+        default:0,
         required: true
     },
     status:{

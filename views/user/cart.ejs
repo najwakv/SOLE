@@ -1,0 +1,165 @@
+<%- include('../user/layout/user-header-layout.ejs') -%>
+<div class="container-fluid" style="width: 100%; background-color:  rgb(225, 225, 225);">
+  <div class="col-lg-10 col-md-offset-1" id="cart">
+    <div class="card">
+      <div class="card-body">
+        <!-- <h5 class="card-title">Wishlist</h5> -->
+        <% if (!cart || cart.length == 0) { %> 
+          <div class="col-12 text-center">
+            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
+          </div>
+        <% } else { %> 
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">index</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Size</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Image</th>
+                <th scope="col">OPTIONS</th>
+              </tr>
+            </thead>
+            <tbody style="background-color: white;">
+              <% cart.forEach(function(x) { %>
+                <tr>
+                  <th scope="row">
+                    <%= index++ %>
+                  </th>
+                  <td>
+                    <%= x.productId.productName %>
+                  </td>
+                  <td>
+                    <%= x.productId.size %>
+                  </td>
+                  <td id="one">
+                    <%= x.productId.price %>
+                    <input type="text" value="<%= x.productId.price %>" hidden class="test" name="test">    
+                  </td>
+                  <td>
+                    <button class="btn  btn-dark" onclick="minusQuantity('<%= x.productId._id %>')">-</button>
+                    <button class="btn  btn-dark"><%= x.quantity %></button>
+                    <button class="btn  btn-dark" onclick="plusQuantity('<%= x.productId._id %>')">+</button>
+                  </td>
+                  <td>
+                    <%= x.totalPrice %>
+                  </td>
+                  <td><img src='/images/cardigans/<%= x.productId.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
+                  <td>
+                    <form action="/removeFromCart/<%= x.productId._id %>" method="post">
+                      <button type="submit" class="btn  btn-danger" style="width: 100px;"
+                        ><i class="bi bi-trash-fill"></i></button>
+                    </form>
+                  </td>
+                  <td>
+
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <% } %>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>             
+                <th scope="col" ><h4>total: <b> <%= total %> </b></h4></th>
+              </tr>
+            </thead>
+          </table>
+          <!-- <form action="/applyCoupon" method="post">
+            <input type="text" placeholder="Apply coupon" name="coupon">
+            <button type="submit" class="btn btn-primary">Check</button>
+          </form> -->
+        </div>
+        <a href="/checkout" class="btn btn-primary" style="float: right;">Check out</a>
+        <br>
+        <br>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../user/layout/user-footer-layout.ejs') -%>
+
+<script>
+  function plusQuantity(prod) {
+      $.ajax({
+          url:`/plusQuantity/${prod}`,
+          method: "post",
+          success: (response) => {
+              if (response.status) {
+                  // let quantity = document.getElementById(`${cartId}quantity`).innerHTML;
+                  // quantity = parseInt(quantity);
+                  // document.getElementById(`${cartId}quantity`).innerHTML = quantity + 1;
+                  // document.getElementById(`${cartId}total`).innerHTML = Price * (quantity + 1);
+                  // let totalBill = document.getElementById("Total").innerHTML;
+                  // let supertotalBill = document.getElementById("Totals").innerHTML;
+                  // let total = parseInt(totalBill);
+                  // let price = parseInt(Price);
+                  // document.getElementById("Total").innerHTML = total + price;
+                  // document.getElementById("Totals").innerHTML = total + price;
+                      $("#cart").load(location.href + " #cart>*", "");
+                  Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: " Added ",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+              } else if (response.error) {
+                  console.log("hello");
+              }
+          },
+      });
+  }
+</script>
+
+<script>
+  function minusQuantity(prod) {
+      $.ajax({
+          url:`/minusQuantity/${prod}`,
+          method: "post",
+          success: (response) => {
+              if (response.status) {
+                  // let quantity = document.getElementById(`${cartId}quantity`).innerHTML;
+                  // quantity = parseInt(quantity);
+                  // document.getElementById(`${cartId}quantity`).innerHTML = quantity + 1;
+                  // document.getElementById(`${cartId}total`).innerHTML = Price * (quantity + 1);
+                  // let totalBill = document.getElementById("Total").innerHTML;
+                  // let supertotalBill = document.getElementById("Totals").innerHTML;
+                  // let total = parseInt(totalBill);
+                  // let price = parseInt(Price);
+                  // document.getElementById("Total").innerHTML = total + price;
+                  // document.getElementById("Totals").innerHTML = total + price;
+                      $("#cart").load(location.href + " #cart>*", "");
+                  Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: " Deleted ",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+              } else if (response.deleted) {
+                $("#cart").load(location.href + " #cart>*", "");
+                  Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: " Deleted ",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+              }
+          },
+      });
+  }
+</script>

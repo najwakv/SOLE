@@ -20,6 +20,9 @@ router.get("/allOrder", controller.allOrder);
 router.get("/editcouponpage/:id", controller.editCouponPage);
 router.get("/editbannerpage/:id", controller.editBannerPage);
 router.get("/editcategorypage/:id", controller.editCategoryPage);
+router.get("/testimony",controller.viewTestimony);
+router.get("/addtestimonypage", controller.addTestimonyPage);
+router.get("/edittestimonypage/:id", controller.editTestimonyPage);
 
 //logout
 router.get("/adminlogout", controller.logout);
@@ -60,7 +63,15 @@ router.post("/couponUnblock/:id", controller.unblockCoupon);
 router.post("/couponBlock/:id", controller.blockCoupon);
 router.post("/updateCoupon/:id", controller.updateCoupon);
 
+//TESTIMONY
+router.post('/addTestimony', controller.addTestimony);
+router.post("/updateTestimony/:id", controller.updateTestimony);
+router.post("/testimonyUnblock/:id", controller.unblockTestimony);
+router.post("/testimonyBlock/:id", controller.blockTestimony);
+
 //Orders
 router.post('/status_change',controller.orderStatus)
+
+
 
 module.exports = router

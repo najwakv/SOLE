@@ -1,67 +1,54 @@
 <%-include('../user/layout/user-header-layout.ejs') -%>
-
-
-
-
     <div id="fh5co-product" style="background-color: rgb(225, 225, 225);">
         <div class="container">
             <div class="row">
                 <div class="col-md-6  animate-box">
-                    <div class="owl-carousel owl-carousel-fullwidth product-carousel">
+
+                    <div class="owl-carousel owl-carousel-fullwidth product-carousel">  
+                        <% product.image.forEach((x)=> { %> 
                         <div class="item">
+                         
                             <div class="active text-center">
+                              
+
                                 <figure>
-                                    <img src="/images/cardigans/<%= product.image %>" alt="image">
+                                    <img src="/images/cardigans/<%= x %>" alt="image">
                                 </figure>
+                               
+
                             </div>
+                            
                         </div>
-                        <div class="item">
-                            <div class="active text-center">
-                                <figure>
-                                    <img src="/images/cardigans/<%= product.image %>" alt="user">
-                                </figure>
-                            </div>
-                        </div>
+                        <% }) %>
+
+
                         <!-- <div class="item">
-                        <div class="active text-center">
-                            <figure>
-                                <img src="images/product-single-3.jpg" alt="user">
-                            </figure>
-                        </div>
+                            <div class="active text-center">
+                                <figure>
+                                    <img src="/images/cardigans/" alt="user">
+                                </figure>
+                            </div>
+                        </div> -->
                     </div>
-                    <div class="item">
-                        <div class="active text-center">
-                            <figure>
-                                <img src="images/product-single-4.jpg" alt="user">
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="active text-center">
-                            <figure>
-                                <img src="images/product-single-5.jpg" alt="user">
-                            </figure>
-                        </div>
-                    </div> -->
-                    </div>
-                    
-                </div>
+                </div>        
 
                 <div class="col-md-6 ">
                     <div class="fh5co-tabs animate-box">
-
-                        <div class="fh5co-tab-content-wrap">
-
-                            
-
+                        <div class="fh5co-tab-content-wrap" style="height: 472px;">
                             <div class="fh5co-tab-content tab-content active" data-tab-content="1">
                                 <div class="col-md-10 col-md-offset-1">
-
                                     <h2 style="text-transform: uppercase;">
                                         <%= product.productName %>
                                     </h2>
                                     <span class="price">RS: <%= product.price %></span>
-                                    <!-- <p></p> -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h2 class="uppercase">size</h2>
+                                            <p>
+                                                <%= product.size %>
+                                            </p>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h2 class="uppercase">DESCRIPTION</h2>
@@ -69,48 +56,139 @@
                                                 <%= product.description %>
                                             </p>
                                         </div>
-                                        <!-- <div class="col-md-6">
-                                        <h2 class="uppercase"> NAME </h2>
-                                        <p><%= product.productName %></p>
-                                    </div> -->
                                     </div>
-
                                 </div>
                             </div>
-                                 
                         </div>
-
                     </div>
                     <div class="row animate-box">
                         <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                             <p>
                             <div style="display: flex; justify-content: center;">
-    
-                                <form action="" method="get">
-                                    <button type="submit" class="btn btn-Danger btn-outline btn-lg"
-                                        style="width: 200px;">Add to Cart</button>
-                                </form>
-    
-                                <form action="/addToWishlist/<%= product._id %> " method="post">
-                                    <button type="submit" class="btn btn-primary btn-outline btn-lg"
-                                        style="width: 200px;"> Add to WishList</button>
-                                </form>
-    
+                                <button type="submit" class="btn btn-Danger btn-outline btn-lg" style="width: 200px;"
+                                    onclick="addtoCart('<%=product._id %>')">Add to Cart</button>
+                                <button type="submit" class="btn btn-primary btn-outline btn-lg" style="width: 200px;"
+                                    onclick="addtoWishlist('<%=product._id %>')"> Add to WishList</button>
                             </div>
                             </p>
                         </div>
                     </div>
                 </div>
-               
             </div>
         </div>
     </div>
 
+    <script>
+        async function addtoCart(productId) {
+            // window.alert("one")
+            $.ajax({
+                url: `/addToCart/${productId}`,
+                data: {
+                    name: productId,
+                },
+                method: "post",
+                success: (response) => {
+                    if (response.added) {
+                        //   $("#cart").load(location.href + " #cart>*", "");
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: " Added ",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    }
+                    else if (response.loginerr) {
+                        // window.location = "/signin";
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "please login first",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    } else if (response.added) {
+                        $("#productCard").load(location.href + " #productCard>*", "");
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Item added to cart",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    } else if (response.exist) {
+                        $("#productCard").load(location.href + " #productCard>*", "");
+                        Swal.fire({
+                            position: "right-end",
+                            icon: "success",
+                            title: " already exist",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    }
+                }
+            })
+        }
+    </script>
 
-
-
-
-
-
-
+    <script>
+        async function addtoWishlist(productId) {
+            // window.alert("one")
+            $.ajax({
+                url: `/addToWishlist/${productId}`,
+                data: {
+                    name: productId,
+                },
+                method: "post",
+                success: (response) => {
+                    if (response.added) {
+                        //   $("#cart").load(location.href + " #cart>*", "");
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: " Added ",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    }
+                    else if (response.loginerr) {
+                        // window.location = "/signin";
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "please login first",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    } else if (response.added) {
+                        $("#productCard").load(location.href + " #productCard>*", "");
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Item added to cart",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    } else if (response.exist) {
+                        $("#productCard").load(location.href + " #productCard>*", "");
+                        Swal.fire({
+                            position: "right-end",
+                            icon: "success",
+                            title: " already exist",
+                            customClass: "swal-wide",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    }
+                }
+            })
+        }
+    </script>
     <%-include('../user/layout/user-footer-layout.ejs') -%>

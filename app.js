@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const multer = require('multer');
+// require('dotenv').config()
 
 //routers
 const homeRoute = require('./routes/user');
@@ -16,6 +17,9 @@ app.set('views',path.join(__dirname,'/views'));
 app.set('view engine','ejs');
 
 app.use(express.static(path.join(__dirname,'public')));
+
+app.use(express.static(path.join(__dirname,'public')));
+
 
 app.use(express.json());
 app.use(express.urlencoded({extented:false}));
@@ -32,7 +36,7 @@ const storage = multer.diskStorage({
     },
 });
 //using multer
-app.use(multer({storage: storage}).single("image"));
+app.use(multer({storage: storage}).array("image",10));
 
 //session
 const oneDay = 1000 * 60 * 60 * 24;

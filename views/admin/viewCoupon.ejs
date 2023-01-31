@@ -24,6 +24,7 @@
                                 <th scope="col">Maximum Discount</th>
                                 <th scope="col">Created Date</th>
                                 <th scope="col">Expiry Date</th>
+                                <th scope="col">Limit</th>
                                 <th scope="col">No of Times</th>
                                 <th scope="col">ACTIONS</th>
                             </tr>
@@ -54,8 +55,12 @@
                                         <%= coupon.expiryDate %>
                                     </td>
                                     <td>
+                                        <%= coupon.limit %>
+                                    </td>
+                                    <td>
                                         <%= coupon.times %>
                                     </td>
+                                    
                                     <td>
                                         <form action="/admin/deleteCoupon/<%= coupon._id %>" method="post">
                                             <button type="submit" class="btn  btn-danger"  style="width: 75px; height: 38px;;"

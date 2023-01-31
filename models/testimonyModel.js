@@ -14,8 +14,8 @@ const testimonySchema = new mongoose.Schema({
         required: true
     },
     status: {
-        type: String,
-        default: 'Active'
+        type: Boolean,
+        default: false
     }
 });
 module.exports = TestimonyModel = mongoose.model('TestimonyData',testimonySchema);

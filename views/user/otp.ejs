@@ -56,9 +56,29 @@
                         <button type="submit" class="btn btn-light btn-block">Submit</button>
                     </form>
                     <br>
+
+
+
+
+
+
+                    <script>
+                        var timeleft = 30;
+                        var downloadTimer = setInterval(function () {
+                            timeleft--;
+                            document.getElementById("countdowntimer").textContent = timeleft;
+                            if (timeleft <= 0) {
+                                clearInterval(downloadTimer);
+                                document.getElementById("countdowntimer").innerHTML = '<input type="submit"  class="btn btn-light btn-block" value="Resend otp"  >'
+                            }
+                        }, 1000);
+                    </script>
                     <form action="/resendotp" method="post">
-                        <button type="submit" class="btn btn-light btn-block">Resend OTP</button>
+                        <form action="/resendotp" method="post">
+                        <button type="submit" class="btn btn-light btn-block"><span id="countdowntimer">30 </span> </button>
                     </form>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -81,3 +101,4 @@
 </body>
 
 </html>
+<!-- bkjhdfkfjvldfjkl -->

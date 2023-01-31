@@ -1,0 +1,78 @@
+<%- include('../user/layout/user-header-layout.ejs') -%>
+
+  <div class="container-fluid" style="width: 100%; background-color:  rgb(225, 225, 225);" >
+    <div class="col-lg-10 col-md-offset-1">
+    <div class="card">
+      <div class="card-body">
+        <!-- <h5 class="card-title">Wishlist</h5> -->
+        <% if (wishlist.length == 0) { %> 
+          <div class="col-12 text-center">
+            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
+          </div>
+        <% } else { %> 
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">index</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Size</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+                <th scope="col">OPTIONS</th>
+              </tr>
+            </thead>
+            <tbody style="background-color: white;">
+              <% wishlist.forEach(function(x) { %>
+                <tr>
+                  <th scope="row">
+                    <%= index++ %>
+                  </th>
+                  <td>
+                    <%= x.productName %>
+                  </td>
+                  <td>
+                    <%= x.size %>
+                  </td>
+                  <td>
+                    <%= x.price %>
+                  </td>
+                  <td><img src='/images/cardigans/<%= x.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
+                  <td>
+                    <form action="/removeFromWishlist/<%= x._id %>" method="post">
+                      <button type="submit" class="btn  btn-danger" style="width: 100px;"
+                        ><i
+                          class="bi bi-trash-fill"></i></button>
+                    </form>
+                  </td>
+                  <td>
+                    <form action="/addtoCart/<%= x._id %>" method="post">
+                      <button type="submit" class="btn  btn-primary" style="width: 125px;"
+                        >Add to Cart</button>
+                    </form>
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <%- include('../user/layout/user-footer-layout.ejs') -%>

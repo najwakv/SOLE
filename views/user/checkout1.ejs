@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Home</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="../homepage/images/icons/favicon.png" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/fonts/linearicons-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/daterangepicker/daterangepicker.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/slick/slick.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/MagnificPopup/magnific-popup.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../homepage/vendor/perfect-scrollbar/perfect-scrollbar.css">
+	<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="../homepage/css/util.css">
+		<link rel="stylesheet" type="text/css" href="../homepage/css/main.css">
+	<!--===============================================================================================-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</head>
+
+<body class="animsition">
+
+    <!-- Header -->
+    <header>
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+            <!-- Topbar -->
+            <div class="top-bar"></div>
+
+            <div class="wrap-menu-desktop">
+                <nav class="limiter-menu-desktop container">
+
+                    <!-- Logo desktop -->
+                    <a href="/" class="logo">
+                        <img src="../homepage/images/icons/bikevio.png" alt="IMG-LOGO">
+                    </a>
+
+                    <!-- Menu desktop -->
+                    <div class="menu-desktop">
+                        <ul class="main-menu">
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+
+                            <li>
+                                <a href="/product">Bikes</a>
+                            </li>
+                            <li>
+                                <a href="/profilePage">Profile</a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                    <!-- Icon header -->
+                    <div class="wrap-icon-header flex-w flex-r-m">
+
+                        <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search"
+                                aria-label="Search">
+                            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  js-show-cart">
+                            <a href="/cart"> <i class="zmdi zmdi-shopping-cart"></i></a>
+                        </div>
+                        <div class="ml-4 mb-2">
+                            <!-- CART LOGIN -->
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                <a href="/"><img src="../homepage/images/icons/bikevio.png" alt="IMG-LOGO"></a>
+            </div>
+
+            <!-- Icon header -->
+            <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+                    <i class="zmdi zmdi-search"></i>
+                </div>
+
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10  js-show-cart"><a href="/cart">
+                        <i class="zmdi zmdi-shopping-cart"></i></a>
+                </div>
+            </div>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Menu Mobile -->
+        <div class="menu-mobile">
+
+
+            <ul class="main-menu-m">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+
+                <li>
+                    <a href="/product">Bikes</a>
+                </li>
+
+                <li>
+                    <a href="/profilePage">Profile</a>
+                </li>
+                <div class="ml-3 mb-2">
+                    <!-- LOGIN CODE -->
+                </div>
+            </ul>
+
+        </div>
+
+        <!-- Modal Search -->
+        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+            <div class="container-search-header">
+                <div class="d-flex">
+                    <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                        <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-secondary my-2 my-sm-0" style="margin-left: 145px;"
+                            type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+    <!-- CONTENT -->
+
+    <!-- Checkout -->
+
+    <div class="container bg0 p-t-60 p-b-85 mt-5 p">
+        <div class="row">
+            <div class="col-lg-10 col-xl-7 m-lr-auto ">
+                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                    <div class="wrap-table-shopping-cart">
+                        <!-- ADRESS LOOP -->
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th class="p-l-15">Address</th>
+                                <!-- <td class="p-r-20"><button class="btn text-primary" data-toggle="collapse"
+                                            data-target="#collapseExample" aria-expanded="false"
+                                            aria-controls="collapseExample"> Change</button></td> -->
+                            </tr>
+                            <tr class="table_row">
+                                <td class="p-l-30">
+                                    <p><strong>Full Name :</strong>
+                                        Najwa KV
+                                    </p>
+                                    <p><strong>Phone Number :</strong>
+                                        9999999999
+                                    </p>
+                                    <p><strong>Address :</strong>
+                                        OOlampara
+                                        </span>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- Loop Close -->
+                        <!-- <div class="collapse" id="collapseExample">
+                                <form action="/changeAddress" method="post">
+                                    <div class="card card-body">
+                                       
+                                            <div class="form-check card card-body">
+                                                <input class="form-check-input" type="radio" value=""
+                                                    name="index" id="exampleRadios1">
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    <p><strong>Full Name :</strong>
+                                                      
+                                                    </p>
+                                                    <p><strong>Phone Number :</strong>
+                                                        
+                                                    </p>
+                                                    <p><strong>Address :</strong>
+                                                        </span>
+                                                    </p>
+                                                </label>
+                                            </div>
+                                           
+                                                <button type="submit"
+                                                    class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+                                                    Deliver Here
+                                                </button>
+                                    </div>
+                                </form>
+                            </div> -->
+
+                        <div class="card card-body">
+                            <button type="button" data-toggle="collapse" data-target="#newAddress" aria-expanded="false"
+                                aria-controls="newAddress">
+                                Add new address
+                            </button>
+                            <div class="collapse" id="newAddress">
+                                <div class="card card-body">
+
+                                    <form action="/newAddress" method="POST" class="row mt-4">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationDefault01" class="form-label">Full
+                                                name</label>
+                                            <input type="text" name="fullName" class="form-control"
+                                                id="validationDefault01" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationDefault02" class="form-label">Phone
+                                                number</label>
+                                            <input type="number" name="phoneNumber" class="form-control"
+                                                id="validationDefault02" required>
+                                        </div>
+                                        <div class="col-md-8 mb-3">
+                                            <label for="validationDefault02" class="form-label">Address</label>
+                                            <input type="text" name="address" class="form-control"
+                                                id="validationDefault02" required>
+                                        </div>
+                                        <!-- <div class="col-md-4 mb-3">
+                                                    <label for="validationDefault02" class="form-label">Type</label>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="type"
+                                                            id="inlineRadio1" value="Home">
+                                                        <label class="form-check-label" for="inlineRadio1">Home</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline p-l-15">
+                                                        <input class="form-check-input" type="radio" name="type"
+                                                            id="inlineRadio2" value="Office">
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio2">Office</label>
+                                                    </div>
+                                                </div> -->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationDefault04" class="form-label">City</label>
+                                            <input type="text" name="city" class="form-control" id="validationDefault03"
+                                                required>
+                                        </div>
+                                        <div class="col-md-4 mb-3 ">
+                                            <label for="validationDefault03" class="form-label">State</label>
+                                            <select name="state" id="state" class="form-control" required>
+                                                <option value="">Select one</option>
+                                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar
+                                                    Islands
+                                                </option>
+                                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                <option value="Assam">Assam</option>
+                                                <option value="Bihar">Bihar</option>
+                                                <option value="Chandigarh">Chandigarh</option>
+                                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                                <option value="Delhi">Delhi</option>
+                                                <option value="Lakshadweep">Lakshadweep</option>
+                                                <option value="Puducherry">Puducherry</option>
+                                                <option value="Goa">Goa</option>
+                                                <option value="Gujarat">Gujarat</option>
+                                                <option value="Haryana">Haryana</option>
+                                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                                <option value="Jharkhand">Jharkhand</option>
+                                                <option value="Karnataka">Karnataka</option>
+                                                <option value="Kerala">Kerala</option>
+                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                <option value="Maharashtra">Maharashtra</option>
+                                                <option value="Manipur">Manipur</option>
+                                                <option value="Meghalaya">Meghalaya</option>
+                                                <option value="Mizoram">Mizoram</option>
+                                                <option value="Nagaland">Nagaland</option>
+                                                <option value="Odisha">Odisha</option>
+                                                <option value="Punjab">Punjab</option>
+                                                <option value="Rajasthan">Rajasthan</option>
+                                                <option value="Sikkim">Sikkim</option>
+                                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                                <option value="Telangana">Telangana</option>
+                                                <option value="Tripura">Tripura</option>
+                                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                <option value="Uttarakhand">Uttarakhand</option>
+                                                <option value="West Bengal">West Bengal</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="validationDefaultUsername" class="form-label">Pincode</label>
+                                            <div class="input-group">
+                                                <input type="number" name="pincode" class="form-control"
+                                                    id="validationDefaultUsername" minlength="6" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 ">
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50" id="order">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+                    <h4 class="mtext-109 cl2 p-b-30">Your order</h4>
+
+
+
+
+                    <div class="flex-w flex-t p-t-27 p-b-33">
+                        <div class="size-208 p-b-5">
+                            <span class="mtext-101 cl2">Booking: </span>
+                        </div>
+
+                        <div class="size-209 p-t-1 p-b-5 d-flex justify-content-end">
+                            <span class="mtext-110 cl2">
+                                Cart Amount
+                            </span>
+                        </div>
+                        <div class="size-208 p-b-5">
+                            <span class="mtext-101 cl2">Coupon: </span>
+                        </div>
+
+                        <div class="size-209 p-t-1 p-b-5 d-flex justify-content-end">
+                            <span class="mtext-110 cl2">
+
+                            </span>
+                        </div>
+
+
+                        <div class="size-208 p-b-10 m-t-10 bor12">
+
+                            <form id="verify-coupon" style="width: 200px; height: 30px;">
+                                <!-- Apply coupon -->
+                                <input type="text" placeholder="Apply Coupon" name="coupon" value="">
+
+                        </div>
+
+                        <div class="size-209 bor12 p-b-10 m-t-10 d-flex justify-content-end">
+                            <button class="p-1 rounded"
+                                style="border: 1px solid; border-color: rgb(255, 9, 9); width: 60px;">Cancel</button>
+                        </div>
+                        <!-- Else -->
+
+                        <input type="text" name="coupon" placeholder="Apply Coupon">
+
+                    </div>
+
+                    <div class="size-209 bor12 p-b-10 m-t-10 d-flex justify-content-end">
+                        <button class="p-1 rounded"
+                            style="border: 1px solid; border-color: rgb(159, 159, 159); width: 60px;">Apply</button>
+                    </div>
+                    <!-- If close -->
+
+                    </form>
+                    <div class="size-208 mt-2 p-b-5 ">
+                        <span class="mtext-101 cl2">Total: </span>
+                    </div>
+
+
+
+
+                    <div class="size-209 mt-2 p-t-1 p-b-5 d-flex justify-content-end">
+                        <span class="mtext-110 cl2" id="lastPrice">Cart total</span>
+                    </div>
+
+
+
+                </div>
+                <form id="checkout-form" novalidate="novalidate">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="paynow" value="Razorpay"
+                            checked>
+                        <label class="form-check-label" for="paynow">
+                            Razorpay
+                        </label>
+                    </div>
+                    <!-- If Coupon -->
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="COD">
+                        <label class="form-check-label" for="cod">
+                            Cash on delivery
+                        </label>
+                    </div>
+                    <!-- If close -->
+
+                    <button type="submit"
+                        class="btn-success flex-c-m stext-101 cl0 size-116 bor14 p-lr-15 trans-04 pointer">
+                        Place Order
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let userOrderData
+        $("#checkout-form").submit((e) => {
+            e.preventDefault();
+
+            $.ajax({
+                url: "/orderbutton/",
+                method: "post",
+                data: $("#checkout-form").serialize(),
+                success: (response) => {
+                    if (response.cashOnDelivery) {
+                        console.log('cash on delivery truee');
+                        Swal.fire({
+                            title: "Order Placed Successfully",
+                            icon: "success",
+                            showDenyButton: true,
+                            confirmButtonText: "View Order",
+                            denyButtonText: `Continue Shopping`,
+                            toast: true,
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                location.href = "/viewOrders";
+                            } else if (result.isDenied) {
+                                location.href = "/";
+                            }
+                        });
+                    } else if (response.onlinePayment) {
+                        console.log("test ok");
+                        let razorpayoderData = response.razorpayoderData;
+                        userOrderData = response.userOrderData;
+                        let bookingAmount = response.bookingAmount
+                        var options = {
+                            key: "rzp_test_uizcWUjK0kfQb4", // Enter the Key ID generated from the Dashboard
+                            amount: bookingAmount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                            currency: "INR",
+                            name: "bikevio",
+                            description: "Test Transaction",
+                            image: "https://example.com/your_logo",
+                            order_id: response.razorpayOrderData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                            handler: function (response) {
+                                console.log(response, "????????????????????????????????????????");
+                                // alert(response.razorpay_payment_id);
+                                //alert(response.razorpay_order_id);
+                                //alert(response.razorpay_signature);
+                                verifyPayment(response,);
+                            },
+                            prefill: {
+                                name: "Gaurav Kumar",
+                                email: "gaurav.kumar@example.com",
+                                contact: "9999999999",
+                            },
+                            notes: {
+                                address: "Razorpay Corporate Office",
+                            },
+                            theme: {
+                                color: "#3399cc",
+                            },
+                        };
+
+                        var rzpl = new Razorpay(options);
+
+                        rzpl.on("payment.failed", function (response) {
+                            paymentFailed(response);
+                        });
+                        rzpl.open();
+                    }
+                },
+            });
+        });
+
+        function verifyPayment(payment, razorpayOrderData) {
+            console.log(razorpayOrderData);
+
+            $.ajax({
+                url: "/verifyPayment",
+                data: {
+                    payment,
+                    razorpayOrderData,
+                    userOrderData,
+                },
+                method: "post",
+                success: (response) => {
+                    Swal.fire({
+                        title: "Order Placed Successfully",
+                        icon: "success",
+                        showDenyButton: true,
+                        confirmButtonText: "View Order",
+                        denyButtonText: `Continue Shopping`,
+                        toast: true,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            location.href = "/viewOrders";
+                        } else if (result.isDenied) {
+                            location.href = "/";
+                        }
+                    });
+                }
+                // success: (response) => {
+                //   if (response.status) {
+                //     console.log(response,'sucessssssss');
+                //     swal("", "Order success !", "success")
+                //     location.href='/'
+                //   }
+                // },
+            });
+        }
+
+        function paymentFailed(response) {
+            $.ajax({
+                url: "/paymentFailed",
+                data: response,
+                method: "post",
+                success: (response) => {
+                    if (response.status) {
+                        Swal.fire({
+                            title: "Payment Failed !",
+                            icon: "error",
+                            showDenyButton: false,
+                            toast: true,
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                location.href = "/";
+                            } else if (result.isDenied) {
+                                location.href = "/";
+                            }
+                        });
+                    }
+                },
+            });
+        }
+    </script>
+
+    <script>
+        $("#verify-coupon").submit((e) => {
+            e.preventDefault()
+            const total = document.getElementById('lastPrice').innerHTML
+            console.log(total, 'ajaaazzzzzzzzzzzzzzzs')
+            $.ajax({
+                url: '/coupon_verify',
+                method: 'post',
+                data: $('#verify-coupon').serialize() + "&amountTotal=" + total,
+                success: (response) => {
+                    if (response.success) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Received the Coupon',
+                            customClass: 'swal-wide',
+                            showConfirmButton: false,
+                            timer: 1000
+                        }).then((result) => {
+                            location.reload()
+                        })
+                    } else if (response.maxRadeem) {
+                        console.log(response.maxRadeem)
+                        Swal.fire(
+                            'Sorry!',
+                            `Maximum radeem amount is ${response.maxRadeem}`,
+                            'error'
+                        )
+                    } else if (response.minCart) {
+                        console.log(response.minCart)
+                        Swal.fire(
+                            'Sorry!',
+                            `Minimum cart amount is ${response.minCart}`,
+                            'error'
+                        )
+                    } else if (response.minCart) {
+                        Swal.fire(
+                            'Sorry!',
+                            'This coupon date is expired',
+                            'error'
+                        )
+                    } else if (response.exist) {
+                        Swal.fire(
+                            'Sorry!',
+                            'This coupon already used',
+                            'error'
+                        )
+                    } else if (response.removeCoupon) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Coupon Code Removed',
+                            customClass: 'swal-wide',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then((result) => {
+                            location.reload()
+                        })
+                    }
+                    else {
+                        Swal.fire(
+                            'Sorry!',
+                            'This coupon Invalid',
+                            'error'
+                        )
+                    }
+                }
+            })
+        })
+    </script>
+
+
+
+
+
+
+    <!-- FOOTER -->
+
+
+
+    <!-- Footer -->
+    <footer class="bg3 p-t-75 p-b-32">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Categories
+                    </h4>
+
+                    <ul>
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                Sports
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                Touring
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                Adventure
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Help
+                    </h4>
+
+                    <ul>
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                Track Order
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                Shipping
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                FAQs
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        GET IN TOUCH
+                    </h4>
+
+                    <p class="stext-107 cl7 size-201">
+                        Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
+                        on (+1) 96 716 6879
+                    </p>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Newsletter
+                    </h4>
+                    <ul>
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                Race news
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                New launched bikes
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                                About us
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="p-t-40">
+                <div class="flex-c-m flex-w p-b-18">
+                    <a href="#" class="m-all-1">
+                        <img src="../homepage/images/icons/icon-pay-01.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                        <img src="../homepage/images/icons/icon-pay-02.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                        <img src="../homepage/images/icons/icon-pay-03.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                        <img src="../homepage/images/icons/icon-pay-04.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                        <img src="../homepage/images/icons/icon-pay-05.png" alt="ICON-PAY">
+                    </a>
+                </div>
+
+                <p class="stext-107 cl6 txt-center">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | Bikevio
+
+
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/bootstrap/js/popper.js"></script>
+    <script src="/public/stylesheets/user/homepage/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/select2/select2.min.js"></script>
+    <script>
+    // $(".js-select2").each(function () {
+    //     $(this).select2({
+    //         minimumResultsForSearch: 20,
+    //         dropdownParent: $(this).next('.dropDownSelect2')
+    //     });
+    // })
+    </script>
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/js/slick-custom.js"></script>
+
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/parallax100/parallax100.js"></script>
+    
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+   
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/isotope/isotope.pkgd.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/sweetalert/sweetalert.min.js"></script>
+    
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    
+    <!--===============================================================================================-->
+    <script src="/public/stylesheets/user/homepage/js/main.js"></script>
+
+
+
+    
+
+
+
+
+
+<!--===============================================================================================-->
+<script src="../homepage/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="../homepage/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="../homepage/vendor/bootstrap/js/popper.js"></script>
+<script src="../homepage/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="../homepage/vendor/select2/select2.min.js"></script>
+
+<!--===============================================================================================-->
+<script src="../homepage/vendor/daterangepicker/moment.min.js"></script>
+<script src="../homepage/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="../homepage/vendor/slick/slick.min.js"></script>
+<script src="../homepage/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+<script src="../homepage/vendor/parallax100/parallax100.js"></script>
+<script>
+    // $('.parallax100').parallax100();
+</script>
+<!--===============================================================================================-->
+<script src="../homepage/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+
+<!--===============================================================================================-->
+<script src="../homepage/vendor/isotope/isotope.pkgd.min.js"></script>
+<!--===============================================================================================-->
+<script src="../homepage/vendor/sweetalert/sweetalert.min.js"></script>
+
+<!--===============================================================================================-->
+<script src="../homepage/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+<!--===============================================================================================-->
+<script src="../homepage/js/main.js"></script>
+
+</body>
+
+</html>

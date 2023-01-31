@@ -1,6 +1,6 @@
 <%-include('../user/layout/user-header-layout.ejs') -%>
 
-    <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner"
+    <!-- <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner"
         style="background-image:url('https://st1.myideasoft.com/idea/jr/73/themes/selftpl_62177def8f4d9/assets/uploads/en/category_image_1.jpeg?revision=7.2.4.3-10-1669725188');">
         <div class="overlay"></div>
         <div class="container">
@@ -15,10 +15,12 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> -->
 
-    <div id="fh5co-product"">
-        <div class="container">
+    <%-include('../user/sort-filter.ejs') -%>
+    
+    <div id="fh5co-product" style="background-color: rgb(225, 225, 225);">
+        <div class=" container">
             <!-- <div class="row animate-box">
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                     <span>Cool Stuff</span>
@@ -41,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="desc">
-                                <h3 style="color: black;"><a href="singleProduct/<%= x._id %>" >
+                                <h3 style="color: black;"><a href="singleProduct/<%= x._id %>">
                                         <%= x.productName %>
                                     </a>
                                 </h3>
@@ -50,6 +52,33 @@
                         </div>
                     </div>
                 <% }) %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="pagination-wrap">
+                    <% if(hasPreviousPage){ %>
+                        <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:rgb(82, 81, 80)" class="text-center"
+                          href="/allProductPage?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
+                            aria-hidden="true"></i>&nbsp; Previous</a>
+                        <% } %>
+                          <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:rgb(82, 81, 80); border: 2px solid rgb(82, 81, 80); border-radius: 50px;"
+                            href="/allProductPage?page=<%= page %>">
+                            <%= page %>
+                          </a>
+                          <% if(hasNextPage) { %>
+                            <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:rgb(82, 81, 80)"
+                              href="/allProductPage?page=<%=  page+1 %>">Next &nbsp; <i class="fa fa-chevron-right"
+                                aria-hidden="true"></i></a>
+                            <% } %>
+                    <!-- <ul>
+                        <li><a href="#">Prev</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a class="active" href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul> -->
+                </div>
             </div>
         </div>
     </div>

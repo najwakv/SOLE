@@ -56,6 +56,9 @@
     <!-- Theme style  -->
     <link rel="stylesheet" href="/stylesheets/user/homestyle/style.css">
 
+	
+
+
     <!-- Modernizr JS -->
     <script src="/javascripts/user/homejs/modernizr-2.6.2.min.js"></script>
     <!-- FOR IE9 below -->
@@ -83,13 +86,13 @@
                     <div class="col-md-3 col-xs-2">
                         <div id="fh5co-logo"><a href="index.html">SOLE</a></div>
                     </div>
-                    <div class="col-md-6 col-xs-6 text-center menu-1">
+                    <div class="col-md-4 col-xs-6 text-center menu-1">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li class="has-dropdown"><a href="">Shop</a>
+                            <li class="has-dropdown"><a href="/allProductPage">Shop</a>
                                 <ul class="dropdown">
 									<% category.forEach(function(x) { %>
-										<li><a href="/categoryProductspage/<%= x._id %>/<%= x.category %>">
+										<li><a href="/categoryProductsPage/<%= x._id %>/<%= x.category %>">
 												<%= x.category%>
 											</a></li>
 									<% }) %>
@@ -99,24 +102,21 @@
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+                    <div class="col-md-5 col-xs-4 text-right hidden-xs menu-2">
                         <ul>
-                            <!-- <li class="search">
-								<div class="input-group">
-									<input type="text" placeholder="Search..">
-									<span class="input-group-btn">
-										<button class="btn btn-primary" type="button"><i
-												class="icon-search"></i></button>
-									</span>
-								</div>
-							</li> -->
+
+                            <li>
+                                <form action="/search" method="post">
+                                    <input type="text" placeholder="search" name="search">    
+                                </form>
+                            </li>
+                           
                             
-                            <li><a href="/search"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="padding-top: 4px;">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg></a></li>
-                            <li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i
+                            
+    
+                            <li class="shopping-cart"><a href="/cart" class="cart"><span><small>0</small><i
                                             class="icon-shopping-cart"></i></span></a></li>
-                            <li class="shopping-cart"><a href="#" class="cart"><span><i
+                            <li class="shopping-cart"><a href="/wishlist" class="cart"><span><i
                                             class="bi bi-heart-fill"></i></span></a></li>
                             <li class=" has-dropdown shopping-cart">
                                 <a href="#" class="cart"><span><i class="bi bi-person-fill"></i></span></a>
@@ -137,3 +137,5 @@
                 </div>
             </div>
         </nav>
+        <!-- Sweetalert -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
