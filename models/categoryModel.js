@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 const mongoose = require('mongoose');
 const { required } = require('nodemon/lib/config');
 
@@ -11,4 +13,5 @@ const categorySchema = new mongoose.Schema({
         default: false
     },
 });
+// eslint-disable-next-line no-undef
 module.exports = CategoryModel = mongoose.model('CategoryData', categorySchema);

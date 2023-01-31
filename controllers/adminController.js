@@ -9,7 +9,16 @@ const CouponModel = require('../models/couponModel');
 const OrderModel = require('../models/orderModel');
 
 module.exports = {
-    //LOGIN
+    //********************************** SIGNIN START ***************************************//
+    //Login page
+    admin: (req, res) => {
+        if (!req.session.adminLogin) {
+            res.render('admin/login');
+        } else {
+            res.redirect('/admin/adminhome');
+        }
+    },
+    //Login
     adminlogin: async (req, res) => {
         const { email, password } = req.body;
         const admin = await AdminModel.findOne({ email });
@@ -23,28 +32,21 @@ module.exports = {
         req.session.adminLogin = true;
         res.redirect('/admin/adminhome');
     },
-    //LOGIN PAGE
-    admin: (req, res) => {
-        if (!req.session.adminLogin) {
-            res.render('admin/login');
-        } else {
-            res.redirect('/admin/adminhome');
-        }
+    //Log out
+    logout: (req, res) => {
+        req.session.loggedOut = true;
+        req.session.destroy()
+        res.redirect('/admin')
     },
+    //********************************** SIGNIN END ***************************************//
+
     //ADMIN HOME PAGE
     home: (req, res) => {
         if (req.session.adminLogin) {
             res.render('admin/home');
         }
     },
-    //LOG OUT
-    logout: (req, res) => {
-        req.session.loggedOut = true;
-        req.session.destroy()
-        res.redirect('/admin')
-    },
-
-    // BANNER MANAGEMENT START
+    //****************************** BANNER MANAGEMENT START ****************************//
 
     //All Banner
     allBanner: async (req, res) => {
@@ -55,7 +57,7 @@ module.exports = {
     addBannerPage: async (req, res) => {
         res.render('admin/addBanner')
     },
-    //Adding Banner
+    //Add Banner
     addBanner: async (req, res) => {
         const { bannerName, description } = req.body
         const image = req.file;
@@ -114,7 +116,6 @@ module.exports = {
         );
         if (req.file != null) {
             const image = req.file;
-            console.log(image);
             await BannerModel.updateOne(
                 { _id: req.params.id },
                 {
@@ -125,19 +126,19 @@ module.exports = {
         }
         res.redirect('/admin/allBanner');
     },
-    //BANNER MANAGEMENT END 
+    //****************************** BANNER MANAGEMENT END ****************************//
 
-    //USER MANAGEMENT START
+    //****************************** USER MANAGEMENT START ****************************//
 
-    //View allUser
+    //View users
     alluser: async (req, res) => {
         const users = await UserModel.find({})
         res.render('admin/viewUser', { users, index: 1, admin: req.session.admin })
     },
-    // Block User
+    // Block user
     blockUser: async (req, res) => {
         const id = req.params.id
-        await UserModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Blocked" } })
+        await UserModel.findByIdAndUpdate({ _id: id }, { $set: { status: true } })
             .then(() => {
                 res.redirect('/admin/alluser')
             });
@@ -145,16 +146,16 @@ module.exports = {
     //Unblock User
     unblockUser: async (req, res) => {
         const id = req.params.id
-        await UserModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Unblocked" } })
+        await UserModel.findByIdAndUpdate({ _id: id }, { $set: { status: false } })
             .then(() => {
                 res.redirect('/admin/alluser')
             })
     },
-    //USER MANAGEMENT END
+    //****************************** USER MANAGEMENT END ****************************//
 
-    //PRODUCT MANAGEMENT START
+    //*************************** PRODUCT MANAGEMENT START **************************//
 
-    //view all products
+    //View products
     viewproduct: async(req,res) => {
         const page = parseInt(req.query.page) || 1;
         const items_per_page = 5;
@@ -167,21 +168,20 @@ module.exports = {
             PreviousPage: page - 1,
         });
     },
-    //add product page
+    //Add product page
     addproductpage: async (req, res) => {
         const category = await CategoryModel.find()
         if (req.session.adminLogin) {
             res.render('admin/addProduct', { category,admin: req.session.admin })
         }
     },
-    //add product
+    //Add product
     addproduct: async (req, res) => {
         const { productName, description, price, size, date, category } = req.body
         const image = req.files;
-
+        // eslint-disable-next-line no-unused-vars
         image.forEach(img => []);
         const productimages = image != null ? image.map((img) => img.filename) : null;
-
         const newProduct = ProductModel({
             productName,
             description,
@@ -190,7 +190,6 @@ module.exports = {
             date,
             category,
             image: productimages
-            // image: image.filename,
         });
         await newProduct
             .save()
@@ -202,7 +201,7 @@ module.exports = {
                 res.redirect("/admin/addproductpage");
             });
     },
-    //edit product
+    //Edit product
     editproductpage: async (req, res) => {
         if (req.session.adminLogin) {
             const id = req.params.id
@@ -229,7 +228,6 @@ module.exports = {
         );
         if (req.file != null) {
             const image = req.file;
-            console.log(image);
             await ProductModel.updateOne(
                 { _id: req.params.id },
                 {
@@ -238,55 +236,54 @@ module.exports = {
                     }
                 });
         }
-        let item = await ProductModel.find({ _id: req.params.id })
         res.redirect('/admin/allproduct');
     },
-    //unblock product
+    //Unblock product
     unblockProduct: async (req, res) => {
         let productId = req.params.id;
         await ProductModel.updateOne({ _id: productId }, { $set: { status: false } });
         res.redirect("/admin/allproduct");
     },
-    //block product
+    //Block product
     blockProduct: async (req, res) => {
         let productId = req.params.id;
         await ProductModel.updateOne({ _id: productId }, { $set: { status: true } });
         res.redirect("/admin/allproduct");
     },
-    //PRODUCT MANAGEMENT END
+    //*************************** PRODUCT MANAGEMENT END **************************//
 
-    //CATEGORY MANAGEMENT START
+    //*************************** CATEGORY MANAGEMENT START ***********************//
     
-    //view category
+    //View category
     viewCategory: async (req, res) => {
         const category = await CategoryModel.find();
         res.render('admin/category', { category });
     },
-    //add category
+    //Add category
     addCategory: async (req, res) => {
         const category = req.body.category
         const newCategory = CategoryModel({ category });
         newCategory.save().then(res.redirect('/admin/category'));
     },
-    //delete category
+    //Delete category
     deleteCategory: async (req, res) => {
         const id = req.params.id
         await CategoryModel.findByIdAndDelete({ _id: id })
         res.redirect('/admin/category');
     },
-    //unblock category
+    //Unblock category
     unblockCategory: async (req, res) => {
         let categoryId = req.params.id;
         await CategoryModel.updateOne({ _id: categoryId }, { $set: { status: false } });
         res.redirect("/admin/category");
     },
-    //block category
+    //Block category
     blockCategory: async (req, res) => {
         let categoryId = req.params.id;
         await CategoryModel.updateOne({ _id: categoryId }, { $set: { status: true } });
         res.redirect("/admin/category");
     },
-    //edit category
+    //Edit category
     editCategoryPage: async(req,res) => {
         if (req.session.adminLogin) {
             const id = req.params.id
@@ -294,7 +291,7 @@ module.exports = {
             res.render('admin/editCategory', { category, admin: req.session.admin });
         }
     },
-    //update category
+    //Update category
     updateCategory: async (req, res) => {
         const id=req.params.id
         const {category}= req.body
@@ -308,21 +305,22 @@ module.exports = {
         );
         res.redirect('/admin/category');
     },
-    //CATEGORY MANAGEMENT END
+    //*************************** CATEGORY MANAGEMENT END ***********************//
 
-    //COUPON MANAGEMENT START
-    //view coupon
+    //*************************** COUPON MANAGEMENT START ***********************//
+    
+    //View coupon
     allCoupon: async (req, res) => {
-        const coupons = await CouponModel.find({}).then((data) => {
+        await CouponModel.find({}).then((data) => {
             let coupons = data
             res.render('admin/viewCoupon', { coupons, index: 1, admin: req.session.admin })
         })
     },
-    //add coupon page
+    //Add coupon page
     addCouponPage: async (req, res) => {
         res.render('admin/addCoupon', { admin: req.session.admin })
     },
-    //add coupon
+    //Add coupon
     addCoupon: async (req, res) => {
         const { couponCode, discount, minimumAmount, maximumDiscount, createdDate, expiryDate, limit } = req.body
         const newCoupon = CouponModel({
@@ -340,25 +338,25 @@ module.exports = {
                 res.redirect("/admin/allCoupon");
             })
     },
-    //delete coupon
+    //Delete coupon
     deleteCoupon: async (req, res) => {
         let id = req.params.id;
         await CouponModel.findByIdAndDelete({ _id: id });
         res.redirect("/admin/allCoupon")
     },
-    //unblock coupon
+    //Unblock coupon
     unblockCoupon: async (req, res) => {
         let couponId = req.params.id;
         await CouponModel.updateOne({ _id: couponId }, { $set: { status: false } });
         res.redirect("/admin/allCoupon");
     },
-    //block coupon
+    //Block coupon
     blockCoupon: async (req, res) => {
         let couponId = req.params.id;
         await CouponModel.updateOne({ _id: couponId }, { $set: { status: true } });
         res.redirect("/admin/allCoupon");
     },
-    //edit coupon
+    //Edit coupon
     editCouponPage: async(req,res) => {
         if (req.session.adminLogin) {
             const id = req.params.id
@@ -366,7 +364,7 @@ module.exports = {
             res.render('admin/editCoupon', { coupon, admin: req.session.admin })
         }
     },
-    //update coupon
+    //Update coupon
     updateCoupon: async (req, res) => {
         const { couponCode, discount, minimumAmount, maximumDiscount, createdDate, expiryDate, limit } = req.body
         await CouponModel.updateOne(
@@ -385,34 +383,33 @@ module.exports = {
         );
         res.redirect('/admin/allCoupon');
     },
-    //COUPON MANAGEMENT END
+    //*************************** COUPON MANAGEMENT END ***********************//
 
-    // TESTIMONY MANAGEMENT START
+    //*************************** TESTIMONY MANAGEMENT START ***********************//
+
+    //View testimony
     viewTestimony: async(req,res)=>{
-        const page = parseInt(req.query.page) || 1;
-        const items_per_page = 5;
-        const totaltestimony = await TestimonyModel.find().countDocuments();
-        const testimony = await TestimonyModel.find().sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page);
-        res.render('admin/testimony', {
-            testimony, index: 1, admin: req.session.admin, page,
-            hasNextPage: items_per_page * page < totaltestimony,
-            hasPreviousPage: page > 1,
-            PreviousPage: page - 1,
-        });
+        const testimony = await TestimonyModel.find()
+        res.render('admin/testimony', { testimony, index: 1 });
     },
+    //Add testimony page
     addTestimonyPage: async(req,res) =>{
         const testimony = await TestimonyModel.find()
         if (req.session.adminLogin) {
             res.render('admin/addTestimony', { testimony,admin: req.session.admin })
         }
     },
+    //Add testimony
     addTestimony: async (req, res) => {
         const { name, description } = req.body
-        const image = req.file;
+        const image = req.files;
+        // eslint-disable-next-line no-unused-vars
+        image.forEach(img => []);
+        const testimonyImages = image != null ? image.map((img) => img.filename) : null;
         const newTestimony = TestimonyModel({
             name,
             description,
-            image: image.filename,
+            image: testimonyImages,
         });
         await newTestimony
             .save()
@@ -424,6 +421,7 @@ module.exports = {
                 res.redirect("/admin/addtestimonypage");
             });
     },
+    //Edit testimony
     editTestimonyPage: async (req, res) => {
         if (req.session.adminLogin) {
             const id = req.params.id
@@ -431,6 +429,7 @@ module.exports = {
             res.render('admin/editTestimony', { testimony,admin: req.session.admin })
         }
     },
+    //Upadate testimony
     updateTestimony: async (req, res) => {
         const { name, description } = req.body
         await TestimonyModel.updateOne(
@@ -444,7 +443,6 @@ module.exports = {
         );
         if (req.file != null) {
             const image = req.file;
-            console.log(image);
             await TestimonyModel.updateOne(
                 { _id: req.params.id },
                 {
@@ -455,25 +453,29 @@ module.exports = {
         }
         res.redirect('/admin/testimony');
     },
+    //Unblock testimony
     unblockTestimony: async (req, res) => {
         let testimonyId = req.params.id;
         await TestimonyModel.updateOne({ _id: testimonyId  }, { $set: { status: false } });
         res.redirect("/admin/testimony");
     },
-    //block product
+    //Block testimony
     blockTestimony: async (req, res) => {
         let testimonyId = req.params.id;
         await TestimonyModel.updateOne({ _id: testimonyId }, { $set: { status: true } });
         res.redirect("/admin/testimony");
     },
+    //*************************** TESTIMONY MANAGEMENT END ***********************//
 
-    //ORDER MANAGEMENT START
-    //view order
+
+    //*************************** ORDER MANAGEMENT START ***********************//
+    //View order
     allOrder: async(req,res) =>{
         const orders = await OrderModel.find({});
         res.render('admin/order', { orders, index: 1, admin: req.session.admin })
     },
-    //order status
+    //Order status
+    // eslint-disable-next-line no-unused-vars
     orderStatus: async(req,res) =>{
         let orderId = req.body.orderId
         let status  = req.body.status
@@ -481,5 +483,5 @@ module.exports = {
             orderStatus:status
         }})
     }
-    //ORDER MANAGEMENT END
+    //*************************** ORDER MANAGEMENT END ***********************//
 }

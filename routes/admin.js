@@ -6,7 +6,6 @@ const controller = require('../controllers/adminController');
 //GET METHODS
 router.get('/',controller.admin);
 router.get("/adminhome", controller.home);
-//Banner 
 router.get('/allBanner',controller.allBanner);
 router.get("/addBannerPage", controller.addBannerPage);
 router.get("/alluser", controller.alluser);
@@ -37,7 +36,7 @@ router.post("/bannerUnblock/:id", controller.unblockBanner);
 router.post("/bannerBlock/:id", controller.blockBanner);
 router.post("/updateBanner/:id", controller.updateBanner);
 
-//user
+//User
 router.post("/unblockUser/:id", controller.unblockUser);
 router.post("/blockUser/:id", controller.blockUser);
 
@@ -54,7 +53,7 @@ router.post("/categoryUnblock/:id", controller.unblockCategory);
 router.post("/categoryBlock/:id", controller.blockCategory);
 router.post("/updateCategory/:id", controller.updateCategory);
 
-// router.post("/categoryUnblock", controller.tset);
+
 
 //Coupon
 router.post("/addCoupon", controller.addCoupon);
@@ -71,7 +70,5 @@ router.post("/testimonyBlock/:id", controller.blockTestimony);
 
 //Orders
 router.post('/status_change',controller.orderStatus)
-
-
 
 module.exports = router

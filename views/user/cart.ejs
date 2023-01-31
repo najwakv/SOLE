@@ -1,165 +1,700 @@
+<style>
+  @import "compass/css3";
+  @import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Chango&family=Roboto&display=swap");
+
+  * {
+    box-sizing: border-box;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    vertical-align: sub;
+  }
+
+  .left {
+    float: left;
+  }
+
+  .right {
+    float: right;
+  }
+
+  .clr {
+    clr: both;
+  }
+
+  .align-left {
+    text-align: left;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .align-center {
+    text-align: center;
+  }
+
+  html {
+    background: #f5f5f5;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .icon {
+    background: url(https://s.cdpn.io/6035/glyphicons-halflings-white.png) no-repeat;
+    display: inline-block;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-position: 14px 14px;
+  }
+
+  .icon-plus {
+    background-position: -408px -96px;
+  }
+
+  .icon-minus {
+    background-position: -433px -96px;
+  }
+
+  .icon-remove {
+    background-position: -312px 0;
+  }
+
+  .btn-quantity {
+    transition: background-color 0.3s ease;
+    font-size: 1.8em;
+    box-shadow: 0 0 5px #000 3;
+    border-radius: 20px;
+    padding: 10px 15px;
+  }
+
+  .btn-quantity.plus {
+    color: #080808;
+  }
+
+  .btn-quantity.plus:hover {
+    color: #000000;
+  }
+
+  .btn-quantity.minus {
+    color: #000000;
+  }
+
+  .btn-quantity.minus:hover {
+    color: rgb(0, 0, 0);
+  }
+
+  .remove {
+    background-color: transparent;
+    text-align: center;
+    display: inline-block;
+    color: #090909;
+  }
+
+  .remove:hover {
+    background-color: #f94a4a;
+    color: #020202;
+  }
+
+  .btn-remove .icon {
+    margin-top: 2px;
+  }
+
+  .btn-checkout {
+    color: #fff;
+    text-decoration: none;
+    margin: 20px 0 0;
+    padding: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    display: block;
+    line-height: 25px;
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+    background: #d1c286;
+    width: 40%;
+    font-size: 2em;
+  }
+
+  .btn-checkout:hover {
+    background: #5e5f5e;
+  }
+
+  .items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+  }
+
+  .item .inner_container {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .item img {
+    border-radius: 10px 0 0 10px;
+  }
+
+  .item .preview {
+    width: 20%;
+  }
+
+  .item .preview ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    height: 100%;
+  }
+
+  .item .preview li {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+  }
+
+  .item .preview li.active {
+    opacity: 1;
+  }
+
+  .item .details {
+    padding: 0px 30px;
+    position: relative;
+    overflow: hidden;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .item .details h3 {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    font-size: 2.6em;
+    font-family: "Amatic SC", cursive;
+  }
+
+  .item .details p {
+    font-size: 1em;
+  }
+
+  .item .details input[type="number"] {
+    width: 50px;
+    height: 30px;
+    padding: 2px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid #ccc;
+  }
+
+  .summary {
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 80px;
+  }
+
+  .summary .meta-data {
+    border-right: 1px solid #eee;
+    padding-right: 10%;
+  }
+
+  .summary .total {
+    font-size: 2em;
+    text-align: center;
+    line-height: 65px;
+  }
+
+  .picker {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+  .quantity-text {
+    margin: 0 20px;
+    font-size: 1.2em;
+  }
+
+  .sub-total,
+  .taxes {
+    font-size: 1.5em;
+    margin: 10px 0;
+  }
+
+  .btn-summary {
+    display: flex;
+    justify-content: space-around;
+    font-family: "Amatic SC", cursive;
+  }
+
+  .btn-reverse {
+    background-color: #fff;
+    color: #474747;
+    border: 1px solid #478298;
+  }
+
+  .delivery-payment {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+  }
+
+  .delivery-address,
+  .payment-details {
+    width: 49%;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #000 30;
+    background-color: #fff;
+    padding: 0px 30px 30px 30px;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-family: "Amatic SC", cursive;
+    font-size: 2em;
+  }
+
+  .coupon {
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #000 30;
+    background-color: #fff;
+    padding: 5px 30px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .coupon h3 {
+    margin-right: 30px;
+    font-family: "Amatic SC", cursive;
+    font-size: 2em;
+  }
+
+  input {
+    border-radius: 10px;
+    height: 40px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+    background-color: #e6e1dd;
+    height: 150px;
+    margin-bottom: 80px;
+    position: fixed;
+    width: 100%;
+    margin-top: -200px;
+    z-index: 99999;
+  }
+
+  .login a {
+    text-decoration: none;
+    color: #575756;
+  }
+
+  .logo {
+    padding: 0 20px;
+  }
+
+  h1 {
+    font-family: "Amatic SC", cursive;
+    font-size: 4em;
+  }
+
+  .summary-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+
+  @media only screen and (max-width: 900px) {
+    h1 {
+      font-size: 3em;
+    }
+
+    .item .details h3 {
+      font-size: 1.6em;
+    }
+
+    .quantity-text {
+      font-size: 1em;
+    }
+
+    .btn-remove {
+      right: 15px;
+      font-size: 1.4em;
+    }
+
+    .item .details p {
+      font-size: 0.8em;
+    }
+
+    .picker {
+      margin-right: 10px;
+    }
+
+    .btn-quantity {
+      font-size: 0.6em;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .item {
+      flex-direction: column;
+      margin: auto;
+      margin-bottom: 30px;
+    }
+
+    .item .preview {
+      width: 100%;
+    }
+
+    .item .details {
+      padding: 15px 30px;
+      width: 100%;
+    }
+
+    .item img {
+      border-radius: 10px 10px 0 0;
+    }
+
+    .item .details h3 {
+      font-size: 2.6em;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 4em;
+    }
+
+    .header {
+      margin-bottom: 50px;
+      height: 80px;
+      margin-top: -120px;
+    }
+
+    .item .details p {
+      font-size: 1em;
+      text-align: center;
+    }
+
+    .item .inner_container {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .grid_12.summary {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 99999;
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    .sub-total,
+    .taxes {
+      font-size: 1em;
+    }
+
+    .summary .total {
+      font-size: 1.6em;
+      line-height: 1em;
+      margin: 10px 0;
+    }
+
+    .delivery-payment {
+      margin-top: 60px;
+    }
+
+    .coupon {
+      flex-direction: column;
+      padding: 30px 0px;
+    }
+
+    .coupon h3 {
+      margin: 0;
+    }
+
+    .btn-checkout {
+      font-size: 1.6em;
+    }
+
+    .logo {
+      width: 50%;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .btn-checkout {
+      font-size: 1.2em;
+    }
+
+    .container {
+      padding: 0 30px;
+    }
+
+    .btn-remove {
+      font-size: 1.2em;
+    }
+  }
+</style>
+
 <%- include('../user/layout/user-header-layout.ejs') -%>
-<div class="container-fluid" style="width: 100%; background-color:  rgb(225, 225, 225);">
-  <div class="col-lg-10 col-md-offset-1" id="cart">
-    <div class="card">
-      <div class="card-body">
-        <!-- <h5 class="card-title">Wishlist</h5> -->
-        <% if (!cart || cart.length == 0) { %> 
-          <div class="col-12 text-center">
-            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
+
+  <div class="container-fluid" style="width: 100%; background-color:  rgb(225, 225, 225);">
+    <div class="col-lg-10 col-md-offset-1" id="cart">
+      <div class="card">
+        <div class="card-body">
+          <div style="height: 20px;">
+            <h4 class="cart-heading"></h4>
           </div>
-        <% } else { %> 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">index</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Size</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Total Price</th>
-                <th scope="col">Image</th>
-                <th scope="col">OPTIONS</th>
-              </tr>
-            </thead>
-            <tbody style="background-color: white;">
+          <% if (!cart || cart.length==0) { %>
+            <div class="container">
+              <div class="col-12 text-center" style="padding-bottom:50px; padding-top: 80px;">
+                <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order"
+                  style="width: 400px; height:300px ;">
+              </div>
+              <div class="container"
+                style="display: flex; align-items: center; justify-content: center;padding-bottom: 110px;">
+                <a href="/" type="button" class="btn btn-primary "
+                  style="font-style: normal;font-weight: 400;text-transform: uppercase;letter-spacing: .08em;white-space: normal;font-size: 12px;">
+                  CONTINUE SHOPPING
+                </a>
+              </div>
+            </div>
+            <% } else { %>
               <% cart.forEach(function(x) { %>
-                <tr>
-                  <th scope="row">
-                    <%= index++ %>
-                  </th>
-                  <td>
-                    <%= x.productId.productName %>
-                  </td>
-                  <td>
-                    <%= x.productId.size %>
-                  </td>
-                  <td id="one">
-                    <%= x.productId.price %>
-                    <input type="text" value="<%= x.productId.price %>" hidden class="test" name="test">    
-                  </td>
-                  <td>
-                    <button class="btn  btn-dark" onclick="minusQuantity('<%= x.productId._id %>')">-</button>
-                    <button class="btn  btn-dark"><%= x.quantity %></button>
-                    <button class="btn  btn-dark" onclick="plusQuantity('<%= x.productId._id %>')">+</button>
-                  </td>
-                  <td>
-                    <%= x.totalPrice %>
-                  </td>
-                  <td><img src='/images/cardigans/<%= x.productId.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
-                  <td>
-                    <form action="/removeFromCart/<%= x.productId._id %>" method="post">
-                      <button type="submit" class="btn  btn-danger" style="width: 100px;"
-                        ><i class="bi bi-trash-fill"></i></button>
-                    </form>
-                  </td>
-                  <td>
+                <div id="deleteProduct">
+                  <ul class="items">
+                    <li class="grid_4 item">
+                      <div class="preview">
+                        <img src="/images/cardigans/<%= x.productId.image[0] %>" />
+                      </div>
 
-                  </td>
-                </tr>
+                      <div class="details" data-price="15.50">
+                        <h3>
+                          <%= x.productId.productName %>
+                        </h3>
+                        <h4>RS:<%= x.productId.price %>
+                        </h4>
+                      </div>
+
+                      <div class="inner_container">
+                        <div class="col_1of2 align-center picker">
+                          <p>
+
+                          <form style="padding-top: 16px;">
+                            <button onclick="removeFromCart('<%= x.productId._id %>')"
+                              class="btn  btn-dark remove">X</button>
+                          </form>
+
+                          <button class="btn  btn-dark" onclick="plusQuantity('<%= x.productId._id %>')">+</button>
+                          <button class="btn  btn-dark"><%= x.quantity %> @ RS: <%= x.totalPrice %></button>
+                          <button class="btn  btn-dark" onclick="minusQuantity('<%= x.productId._id %>')">-</button>
+                          </p>
+                          <input type="hidden" class="quantity_field" name="quantity" data-price="15.50" value="1" />
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
                 <% }) %>
-            </tbody>
-          </table>
-        </div>
-        <% } %>
 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>             
-                <th scope="col" ><h4>total: <b> <%= total %> </b></h4></th>
-              </tr>
-            </thead>
-          </table>
-          <!-- <form action="/applyCoupon" method="post">
-            <input type="text" placeholder="Apply coupon" name="coupon">
-            <button type="submit" class="btn btn-primary">Check</button>
-          </form> -->
+                  <div class="grid_12 coupon">
+                    <h3>Apply Coupon</h3>
+                    <input class="coupon-input" type="text" name="coupon" id="couponCode"
+                      onkeypress="return applyCoupon(event);">
+                  </div>
+
+                  <div class="grid_12 summary">
+                    <div class="inner_container">
+                      <div class="summary-content">
+
+                        <div class="col_1of2 meta-data">
+                          <div class="sub-total">
+                            <em>Total: </em><span class="amount">
+                              <%= total %>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="col_1of2 meta-data">
+                          <div class="sub-total" id="couponSubtotal">
+                            <% if ( subTotal==0) { %>
+                              <em>Sub Total: </em><span class="amount">
+                                <%= total %>
+                              </span>
+                              <% } else { %>
+                                <em>Sub Total: </em><span class="amount">
+                                  <%= subTotal %>
+                                </span>
+                                <% } %>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="btn-summary">
+                        <a href="/allProductPage" class="btn-checkout btn-reverse">Continue Shopping</a>
+                        <a href="/checkout" class="btn-checkout">Checkout</a>
+                      </div>
+
+                    </div>
+                  </div>
+                  <% } %>
         </div>
-        <a href="/checkout" class="btn btn-primary" style="float: right;">Check out</a>
-        <br>
-        <br>
-        
       </div>
     </div>
   </div>
-</div>
 
-<%- include('../user/layout/user-footer-layout.ejs') -%>
+  <%- include('../user/layout/user-footer-layout.ejs') -%>
 
-<script>
-  function plusQuantity(prod) {
-      $.ajax({
-          url:`/plusQuantity/${prod}`,
+    <script>
+      function plusQuantity(prod) {
+        $.ajax({
+          url: `/plusQuantity/${prod}`,
           method: "post",
           success: (response) => {
-              if (response.status) {
-                  // let quantity = document.getElementById(`${cartId}quantity`).innerHTML;
-                  // quantity = parseInt(quantity);
-                  // document.getElementById(`${cartId}quantity`).innerHTML = quantity + 1;
-                  // document.getElementById(`${cartId}total`).innerHTML = Price * (quantity + 1);
-                  // let totalBill = document.getElementById("Total").innerHTML;
-                  // let supertotalBill = document.getElementById("Totals").innerHTML;
-                  // let total = parseInt(totalBill);
-                  // let price = parseInt(Price);
-                  // document.getElementById("Total").innerHTML = total + price;
-                  // document.getElementById("Totals").innerHTML = total + price;
-                      $("#cart").load(location.href + " #cart>*", "");
-                  Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: " Added ",
-                            customClass: "swal-wide",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        });
-              } else if (response.error) {
-                  console.log("hello");
-              }
+            if (response.status) {
+              $("#cart").load(location.href + " #cart>*", "");
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: " Added ",
+                customClass: "swal-wide",
+                showConfirmButton: false,
+                timer: 1000,
+              });
+            } else if (response.error) {
+              console.log("hello");
+            }
           },
-      });
-  }
-</script>
+        });
+      }
+    </script>
 
-<script>
-  function minusQuantity(prod) {
-      $.ajax({
-          url:`/minusQuantity/${prod}`,
+    <script>
+      function minusQuantity(prod) {
+        $.ajax({
+          url: `/minusQuantity/${prod}`,
           method: "post",
           success: (response) => {
-              if (response.status) {
-                  // let quantity = document.getElementById(`${cartId}quantity`).innerHTML;
-                  // quantity = parseInt(quantity);
-                  // document.getElementById(`${cartId}quantity`).innerHTML = quantity + 1;
-                  // document.getElementById(`${cartId}total`).innerHTML = Price * (quantity + 1);
-                  // let totalBill = document.getElementById("Total").innerHTML;
-                  // let supertotalBill = document.getElementById("Totals").innerHTML;
-                  // let total = parseInt(totalBill);
-                  // let price = parseInt(Price);
-                  // document.getElementById("Total").innerHTML = total + price;
-                  // document.getElementById("Totals").innerHTML = total + price;
-                      $("#cart").load(location.href + " #cart>*", "");
-                  Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: " Deleted ",
-                            customClass: "swal-wide",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        });
-              } else if (response.deleted) {
-                $("#cart").load(location.href + " #cart>*", "");
-                  Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: " Deleted ",
-                            customClass: "swal-wide",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        });
-              }
+            if (response.status) {
+              $("#cart").load(location.href + " #cart>*", "");
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: " Deleted ",
+                customClass: "swal-wide",
+                showConfirmButton: false,
+                timer: 1000,
+              });
+            } else if (response.deleted) {
+              $("#cart").load(location.href + " #cart>*", "");
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: " Deleted ",
+                customClass: "swal-wide",
+                showConfirmButton: false,
+                timer: 1000,
+              });
+            }
           },
-      });
-  }
-</script>
+        });
+      }
+    </script>
+    <script>
+      function view() {
+        console.log('asdsh');
+        document.getElementById('newAddress').style.display = "block"
+      }
+      async function applyCoupon(e) {
+        if (e.keyCode == 13) {
+          let coupon = document.getElementById('couponCode').value
+          $.ajax({
+            url: `/applyCoupon`,
+            data: {
+              couponCode: coupon
+            },
+            method: "post",
+            success: (response) => {
+              if (response.apply) {
+                $("#couponSubtotal").load(location.href + " #couponSubtotal>*", "");
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: " Coupon applied ",
+                  customClass: "swal-wide",
+                  showConfirmButton: false,
+                  timer: 1000,
+                });
+              }
+              else if (response.amount) {
+                Swal.fire({
+                  position: "center",
+                  icon: "info",
+                  title: "No minimum amount",
+                  customClass: "swal-wide",
+                  showConfirmButton: false,
+                  timer: 1000,
+                });
+              } else if (response.expiry) {
+                $("#productCard").load(location.href + " #productCard>*", "");
+                Swal.fire({
+                  position: "center",
+                  icon: "info",
+                  title: "Expired",
+                  customClass: "swal-wide",
+                  showConfirmButton: false,
+                  timer: 1000,
+                });
+              } else if (response.limit) {
+                $("#productCard").load(location.href + " #productCard>*", "");
+                Swal.fire({
+                  position: "right-end",
+                  icon: "info",
+                  title: "limit exceeded",
+                  customClass: "swal-wide",
+                  showConfirmButton: false,
+                  timer: 1000,
+                });
+              } else if (response.exist) {
+                $("#productCard").load(location.href + " #productCard>*", "");
+                Swal.fire({
+                  position: "right-end",
+                  icon: "error",
+                  title: "Invalid coupon",
+                  customClass: "swal-wide",
+                  showConfirmButton: false,
+                  timer: 1000,
+                });
+              }
+            }
+          })
+        }
+      }
+    </script>

@@ -1,78 +1,546 @@
+<style>
+    @import "compass/css3";
+    @import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Chango&family=Roboto&display=swap");
+  
+    
+    * {
+      box-sizing: border-box;
+    }
+  
+    img {
+      width: 100%;
+      height: auto;
+      vertical-align: sub;
+    }
+  
+    .left {
+      float: left;
+    }
+  
+    .right {
+      float: right;
+    }
+  
+    .clr {
+      clr: both;
+    }
+  
+    .align-left {
+      text-align: left;
+    }
+  
+    .align-right {
+      text-align: right;
+    }
+  
+    .align-center {
+      text-align: center;
+    }
+  
+    html {
+      background: #f5f5f5;
+      font-family: "Roboto", sans-serif;
+    }
+  
+    .icon {
+      background: url(https://s.cdpn.io/6035/glyphicons-halflings-white.png) no-repeat;
+      display: inline-block;
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-top: 1px;
+      line-height: 14px;
+      vertical-align: text-top;
+      background-position: 14px 14px;
+    }
+  
+    .icon-plus {
+      background-position: -408px -96px;
+    }
+  
+    .icon-minus {
+      background-position: -433px -96px;
+    }
+  
+    .icon-remove {
+      background-position: -312px 0;
+    }
+  
+    .btn-quantity {
+      transition: background-color 0.3s ease;
+      font-size: 1.8em;
+      box-shadow: 0 0 5px #000 3;
+      border-radius: 20px;
+      padding: 10px 15px;
+    }
+  
+    .btn-quantity.plus {
+      color: #080808;
+    }
+  
+    .btn-quantity.plus:hover {
+      color: #000000;
+    }
+  
+    .btn-quantity.minus {
+      color: #000000;
+    }
+  
+    .btn-quantity.minus:hover {
+      color: rgb(0, 0, 0);
+    }
+  
+    .remove {
+      background-color: transparent;
+      text-align: center;
+      display: inline-block;
+      color: #090909;
+    }
+  
+    .remove:hover {
+      background-color: #f94a4a;
+      color: #020202;
+    }
+  
+    .btn-remove .icon {
+      margin-top: 2px;
+    }
+  
+    .btn-checkout {
+      color: #fff;
+      text-decoration: none;
+      margin: 20px 0 0;
+      padding: 10px 0;
+      border-radius: 5px;
+      text-align: center;
+      display: block;
+      line-height: 25px;
+      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease;
+      background: #d1c286;
+      width: 40%;
+      font-size: 2em;
+    }
+  
+    .btn-checkout:hover {
+      background: #5e5f5e;
+    }
+  
+    .items {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  
+    .item {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      position: relative;
+      display: flex;
+    }
+  
+    .item .inner_container {
+      width: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .item img {
+      border-radius: 10px 0 0 10px;
+    }
+  
+    .item .preview {
+      width: 20%;
+    }
+  
+    .item .preview ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      position: relative;
+      height: 100%;
+    }
+  
+    .item .preview li {
+      position: absolute;
+      top: 0;
+      opacity: 0;
+    }
+  
+    .item .preview li.active {
+      opacity: 1;
+    }
+  
+    .item .details {
+      padding: 0px 30px;
+      position: relative;
+      overflow: hidden;
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+  
+    .item .details h3 {
+      margin: 0;
+      position: relative;
+      z-index: 1;
+      font-size: 2.6em;
+      font-family: "Amatic SC", cursive;
+    }
+  
+    .item .details p {
+      font-size: 1em;
+    }
+  
+    .item .details input[type="number"] {
+      width: 50px;
+      height: 30px;
+      padding: 2px;
+      outline: none;
+      border-radius: 5px;
+      border: none;
+      border: 1px solid #ccc;
+    }
+  
+    .summary {
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      margin-bottom: 80px;
+    }
+  
+    .summary .meta-data {
+      border-right: 1px solid #eee;
+      padding-right: 10%;
+    }
+  
+    .summary .total {
+      font-size: 2em;
+      text-align: center;
+      line-height: 65px;
+    }
+  
+    .picker {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+    }
+  
+    .quantity-text {
+      margin: 0 20px;
+      font-size: 1.2em;
+    }
+  
+    .sub-total,
+    .taxes {
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+  
+    .btn-summary {
+      display: flex;
+      justify-content: space-around;
+      font-family: "Amatic SC", cursive;
+    }
+  
+    .btn-reverse {
+      background-color: #fff;
+      color: #474747;
+      border: 1px solid #478298;
+    }
+  
+    .delivery-payment {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 100px;
+    }
+  
+    .delivery-address,
+    .payment-details {
+      width: 49%;
+      border-radius: 10px;
+      box-shadow: 0 0 5px #000 30;
+      background-color: #fff;
+      padding: 0px 30px 30px 30px;
+      margin-bottom: 20px;
+    }
+  
+    h3 {
+      font-family: "Amatic SC", cursive;
+      font-size: 2em;
+    }
+  
+    .coupon {
+      display: flex;
+      border-radius: 10px;
+      box-shadow: 0 0 5px #000 30;
+      background-color: #fff;
+      padding: 5px 30px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  
+    .coupon h3 {
+      margin-right: 30px;
+      font-family: "Amatic SC", cursive;
+      font-size: 2em;
+    }
+  
+    input {
+      border-radius: 10px;
+      height: 40px;
+    }
+  
+    .header {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 30px;
+      background-color: #e6e1dd;
+      height: 150px;
+      margin-bottom: 80px;
+      position: fixed;
+      width: 100%;
+      margin-top: -200px;
+      z-index: 99999;
+    }
+  
+    .login a {
+      text-decoration: none;
+      color: #575756;
+    }
+  
+    .logo {
+      padding: 0 20px;
+    }
+  
+    h1 {
+      font-family: "Amatic SC", cursive;
+      font-size: 4em;
+    }
+  
+    .summary-content {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+    }
+  
+    @media only screen and (max-width: 900px) {
+      h1 {
+        font-size: 3em;
+      }
+  
+      .item .details h3 {
+        font-size: 1.6em;
+      }
+  
+      .quantity-text {
+        font-size: 1em;
+      }
+  
+      .btn-remove {
+        right: 15px;
+        font-size: 1.4em;
+      }
+  
+      .item .details p {
+        font-size: 0.8em;
+      }
+  
+      .picker {
+        margin-right: 10px;
+      }
+  
+      .btn-quantity {
+        font-size: 0.6em;
+      }
+    }
+  
+    @media only screen and (max-width: 768px) {
+      .item {
+        flex-direction: column;
+        margin: auto;
+        margin-bottom: 30px;
+      }
+  
+      .item .preview {
+        width: 100%;
+      }
+  
+      .item .details {
+        padding: 15px 30px;
+        width: 100%;
+      }
+  
+      .item img {
+        border-radius: 10px 10px 0 0;
+      }
+  
+      .item .details h3 {
+        font-size: 2.6em;
+        text-align: center;
+      }
+  
+      h1 {
+        font-size: 4em;
+      }
+  
+      .header {
+        margin-bottom: 50px;
+        height: 80px;
+        margin-top: -120px;
+      }
+  
+      .item .details p {
+        font-size: 1em;
+        text-align: center;
+      }
+  
+      .item .inner_container {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+  
+      .grid_12.summary {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 99999;
+        width: 100%;
+        margin-bottom: 0;
+      }
+  
+      .sub-total,
+      .taxes {
+        font-size: 1em;
+      }
+  
+      .summary .total {
+        font-size: 1.6em;
+        line-height: 1em;
+        margin: 10px 0;
+      }
+  
+      .delivery-payment {
+        margin-top: 60px;
+      }
+  
+      .coupon {
+        flex-direction: column;
+        padding: 30px 0px;
+      }
+  
+      .coupon h3 {
+        margin: 0;
+      }
+  
+      .btn-checkout {
+        font-size: 1.6em;
+      }
+  
+      .logo {
+        width: 50%;
+      }
+    }
+  
+    @media only screen and (max-width: 480px) {
+      .btn-checkout {
+        font-size: 1.2em;
+      }
+  
+      .container {
+        padding: 0 30px;
+      }
+  
+      .btn-remove {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+
 <%- include('../user/layout/user-header-layout.ejs') -%>
 
-  <div class="container-fluid" style="width: 100%; background-color:  rgb(225, 225, 225);" >
-    <div class="col-lg-10 col-md-offset-1">
-    <div class="card">
-      <div class="card-body">
-        <!-- <h5 class="card-title">Wishlist</h5> -->
-        <% if (wishlist.length == 0) { %> 
-          <div class="col-12 text-center">
-            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
-          </div>
-        <% } else { %> 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">index</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Size</th>
-                <th scope="col">Price</th>
-                <th scope="col">Image</th>
-                <th scope="col">OPTIONS</th>
-              </tr>
-            </thead>
-            <tbody style="background-color: white;">
-              <% wishlist.forEach(function(x) { %>
-                <tr>
-                  <th scope="row">
-                    <%= index++ %>
-                  </th>
-                  <td>
-                    <%= x.productName %>
-                  </td>
-                  <td>
-                    <%= x.size %>
-                  </td>
-                  <td>
-                    <%= x.price %>
-                  </td>
-                  <td><img src='/images/cardigans/<%= x.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
-                  <td>
-                    <form action="/removeFromWishlist/<%= x._id %>" method="post">
-                      <button type="submit" class="btn  btn-danger" style="width: 100px;"
-                        ><i
-                          class="bi bi-trash-fill"></i></button>
-                    </form>
-                  </td>
-                  <td>
-                    <form action="/addtoCart/<%= x._id %>" method="post">
-                      <button type="submit" class="btn  btn-primary" style="width: 125px;"
-                        >Add to Cart</button>
-                    </form>
-                  </td>
-                </tr>
-                <% }) %>
-            </tbody>
-          </table>
+    <div class="container-fluid" style="width: 100%; background-color:  rgb(225, 225, 225);">
+        <div class="col-lg-10 col-md-offset-1">
+            <div class="card">
+                <div class="card-body">
+                    <div style="height: 50px;">
+                        <h4 class="cart-heading"></h4>
+                    </div>
+                    <% if (wishlist.length==0) { %>
+                        <div class="container">
+                            <div class="col-12 text-center" style="padding-top: 60px; padding-bottom: 50px;">
+                                <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order"
+                                    style="width: 400px; height:300px ;">
+                            </div>
+                            <div class="container"
+                                style="display: flex; align-items: center; justify-content: center;padding-bottom: 110px;">
+                                <a href="/" type="button" class="btn btn-primary "
+                                    style="font-style: normal;font-weight: 400;text-transform: uppercase;letter-spacing: .08em;white-space: normal;font-size: 12px;">
+                                    CONTINUE SHOPPING
+                                </a>
+                            </div>
+                        </div>
+                        <% } else { %>
+                            <% wishlist.forEach(function(x) { %>
+                                <ul class="items">
+                                    <li class="grid_4 item">
+                                        <div class="preview">
+                                            <img src="/images/cardigans/<%= x.image[0] %>" />
+                                        </div>
+                                        <div class="details" data-price="15.50">
+                                            <h3>
+                                                <%= x.productName %>
+                                            </h3>
+                                            <h4>RS:<%= x.price %>
+                                            </h4>
+
+                                        </div>
+                                        <div class="inner_container">
+                                            <div class="col_1of2 align-center picker">
+                                                <p>
+                                                <form action="/removeFromWishlist/<%= x._id %>" method="post">
+                                                    <button class="btn  btn-dark remove">X</button>
+                                                </form>
+                                                <form >
+                                                  <button  onclick="addtoCart('<%=x._id %>')" class="btn  btn-primary" style="width: 125px;">Add to Cart</button>
+                                                </form>
+                                                    
+                                               
+                                                </p>
+                                                <input type="hidden" class="quantity_field" name="quantity"
+                                                    data-price="15.50" value="1" />
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                    <% }) %>
+                    <div class="grid_12 summary">
+                      <div class="inner_container">
+                        <div class="summary-content">
+                          <div class="col_1of2">
+                            <div class="total">
+                              <span class="amount"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="btn-summary">
+  
+                          <a href="/allProductPage" class="btn-checkout btn-reverse">Continue Shopping</a>
+  
+                          <a href="/cart" class="btn-checkout">Go to Cart</a>
+  
+                        </div>
+                      </div>
+                    </div> 
+                    <% } %>
+                </div>
+            </div>
         </div>
-        <% } %>
-      </div>
     </div>
-  </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <%- include('../user/layout/user-footer-layout.ejs') -%>
+<%- include('../user/layout/user-footer-layout.ejs') -%>

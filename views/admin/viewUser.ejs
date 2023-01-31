@@ -40,7 +40,7 @@
                   </td>
                   
                   <td>
-                    <% if (user.status=="Blocked" ) { %>
+                    <% if (user.status ) { %>
                       <form action="/admin/unblockUser/<%= user._id %> " method="post">
                         <button type="submit" class="btn btn-success" style="width: 100px;"> UnBlock</button>
                       </form>

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const mongoose = require('mongoose');
 
 const testimonySchema = new mongoose.Schema({
@@ -10,7 +11,7 @@ const testimonySchema = new mongoose.Schema({
         required: true
     },
     image: {
-        type: String,
+        type: [String],
         required: true
     },
     status: {

@@ -1,764 +1,231 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: "Poppins", sans-serif;
-            height: 100vh;
-            width: 70%;
-            margin: 0px auto;
-            padding: 50px 0px 0px;
-            color: #4e5150;
-        }
-
-        body header {
-            height: 5%;
-            margin-bottom: 30px;
-        }
-
-        body header>h3 {
-            font-size: 25px;
-            color: #4e5150;
-            font-weight: 500;
-        }
-
-        body main {
-            height: 85%;
-            display: flex;
-            column-gap: 100px;
-        }
-
-        body main .checkout-form {
-            width: 50%;
-        }
-
-        body main .checkout-form form h6 {
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        body main .checkout-form form .form-control {
-            margin: 10px 0px;
-            position: relative;
-        }
-
-        body main .checkout-form form .form-control label:not([for="checkout-checkbox"]) {
-            display: block;
-            font-size: 10px;
-            font-weight: 500;
-            margin-bottom: 2px;
-        }
-
-        body main .checkout-form form .form-control input:not([type="checkbox"]) {
-            width: 100%;
-            padding: 10px 10px 10px 40px;
-            border-radius: 10px;
-            outline: none;
-            border: 0.2px solid #4e5150 85;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        body main .checkout-form form .form-control input:not([type="checkbox"])::placeholder {
-            font-size: 10px;
-            font-weight: 500;
-        }
-
-        body main .checkout-form form .form-control label[for="checkout-checkbox"] {
-            font-size: 9px;
-            font-weight: 500;
-            line-height: 10px;
-        }
-
-        body main .checkout-form form .form-control>div {
-            position: relative;
-        }
-
-        body main .checkout-form form .form-control>div span.fa {
-            position: absolute;
-            top: 50%;
-            left: 0%;
-            transform: translate(15px, -50%);
-        }
-
-        body main .checkout-form form .form-group {
-            display: flex;
-            column-gap: 25px;
-        }
-
-        body main .checkout-form form .checkbox-control {
-            display: flex;
-            align-items: center;
-            column-gap: 10px;
-        }
-
-        body main .checkout-form form .form-control-btn {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-        }
-
-        body main .checkout-form form .form-control-btn button {
-            padding: 10px 25px;
-            font-size: 10px;
-            color: #fff;
-            background: #f2994a;
-            border: 0;
-            border-radius: 7px;
-            letter-spacing: 0.5px;
-            font-weight: 200;
-            cursor: pointer;
-        }
-
-        body main .checkout-details {
-            width: 40%;
-        }
-
-        body main .checkout-details .checkout-details-inner {
-            background: #f2f2f2;
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists {
-            display: flex;
-            flex-direction: column;
-            row-gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card {
-            width: 100%;
-            display: flex;
-            column-gap: 15px;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card .card-image {
-            width: 35%;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card .card-image img {
-            width: 100%;
-            object-fit: fill;
-            border-radius: 10px;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card .card-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card .card-details .card-name {
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card .card-details .card-price {
-            font-size: 10px;
-            font-weight: 500;
-            color: #f2994a;
-            margin-top: 5px;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card .card-details .card-price span {
-            color: #4e5150;
-            text-decoration: line-through;
-            margin-left: 10px;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card .card-details .card-wheel {
-            margin-top: 17px;
-            border: 0.2px solid #4e5150 85;
-            width: 90px;
-            padding: 8px 8px;
-            border-radius: 10px;
-            font-size: 12px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-lists .card .card-details .card-wheel button {
-            background: #e0e0e0;
-            color: #828282;
-            width: 15px;
-            height: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 0;
-            cursor: pointer;
-            border-radius: 3px;
-            font-weight: 500;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-shipping,
-        body main .checkout-details .checkout-details-inner .checkout-total {
-            display: flex;
-            font-size: 16px;
-            padding: 5px 0px;
-            border-top: 1px solid #bdbdbd;
-            justify-content: space-between;
-        }
-
-        body main .checkout-details .checkout-details-inner .checkout-shipping p,
-        body main .checkout-details .checkout-details-inner .checkout-total p {
-            font-size: 10px;
-            font-weight: 500;
-        }
-
-        body footer {
-            height: 5%;
-            color: #bdbdbd;
-            display: -ms-grid;
-            display: grid;
-            place-items: center;
-            font-size: 12px;
-        }
-
-        body footer a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        @media screen and (max-width: 1024px) {
-            body {
-                width: 80%;
-            }
-
-            body main {
-                column-gap: 70px;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            body {
-                width: 92%;
-            }
-
-            body main {
-                flex-direction: column-reverse;
-                height: auto;
-                margin-bottom: 50px;
-            }
-
-            body main .checkout-form {
-                width: 100%;
-                margin-top: 35px;
-            }
-
-            body main .checkout-details {
-                width: 100%;
-            }
-
-            body footer {
-                height: 10%;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <header>
-        <h3>Checkout</h3>
-    </header>
-
-    <main>
-        <% if (adressExist==0) { %>
-            <section class="checkout-form">
-                <form action="/addAddress" method="post">
-                    <h6>Contact information</h6>
-                    <div class="form-control">
-                        <label for="checkout-email">E-mail</label>
-                        <div>
-                            <span class="fa fa-envelope"></span>
-                            <input type="email" id="checkout-email" name="email"
-                                placeholder="Enter your email...">
+<%-include('../user/layout/user-header-layout.ejs') -%>
+    <div class="container">
+        <div class="row" style="margin-bottom: 50px;">
+            <form id="place-order" novalidate="novalidate">
+                <div class="col-md-8 mb-4">
+                    <div class="card mb-4">
+                        <div class="card-header py-3">
+                            <h3 class="mb-0" style="text-transform: uppercase;color: #6a6666;">Select a delivery address
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li
+                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                    <div>
+                                        <strong>Your addresses</strong>
+                                    </div>
+                                </li>
+                                <% if (adressExist==0) { %>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                        <div class="form-check">
+                                            <p>Please click the add address button to add your delivery address</p>
+                                        </div>
+                                    </li>
+                                    <% } else { %>
+                                        <% address.forEach(function(x,index){ %>
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                <div class="form-check">
+                                                    <% if(index==0){ %>
+                                                        <input type="radio" class="addressSelector" name="address"
+                                                            checked id="<%=index%>" value="" />
+                                                        <% }else{ %>
+                                                            <input type="radio" class="addressSelector" name="address"
+                                                                value="<%=index%>" id="<%=index%>" />
+                                                            <% } %>
+                                                                <strong>
+                                                                    <p>
+                                                                        <%= x.fullName %>,
+                                                                            <%= x.email %> ,
+                                                                                <%= x.address %>,
+                                                                                    <%= x.city %>,
+                                                                                        <%= x.state %>,
+                                                                                            <%= x.pincode %>,
+                                                                                                <%= x.country %>,
+                                                                                                    <%= x.phone %>
+                                                                    </p>
+                                                                </strong>
+                                                </div>
+                                            </li>
+                                            <% }) %>
+                                                <% }%>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3"
+                                                        style="background-color: #efefef">
+                                                        <div class="form-check">
+                                                            <p></p>
+                                                        </div>
+                                                    </li>
+                            </ul>
+                            <a href="/addAddress" type="button" class="btn btn-primary btn-lg btn-block">Add Address</a>
+                            </button>
                         </div>
                     </div>
-                    <div class="form-control">
-                        <label for="checkout-phone">Phone</label>
-                        <div>
-                            <span class="fa fa-phone"></span>
-                            <input type="tel" name="phone" id="checkout-phone"
-                                placeholder="Enter you phone...">
-                        </div>
-                    </div>
-                    <br>
-                    <h6>Shipping address</h6>
-                    <div class="form-control">
-                        <label for="checkout-name">Full name</label>
-                        <div>
-                            <span class="fa fa-user-circle"></span>
-                            <input type="text" id="checkout-name" name="name" placeholder="Enter you name...">
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <label for="checkout-address">Address</label>
-                        <div>
-                            <span class="fa fa-home"></span>
-                            <input type="text" name="address" id="checkout-address"
-                                placeholder="Your address...">
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <label for="checkout-city">City</label>
-                        <div>
-                            <span class="fa fa-building"></span>
-                            <input type="text" name="city" id="checkout-city" placeholder="Your city...">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-control">
-                            <label for="checkout-country">Country</label>
-                            <div>
-                                <span class="fa fa-globe"></span>
-                                <input type="text" name="country" id="checkout-country"
-                                    placeholder="Your country..." list="country-list">
-                                <datalist id="country-list">
-                                    <option value="India"></option>
-                                    <option value="USA"></option>
-                                    <option value="Russia"></option>
-                                    <option value="Japan"></option>
-                                    <option value="Egypt"></option>
-                                </datalist>
-                            </div>
-                        </div>
-                        <div class="form-control">
-                            <label for="checkout-postal">Postal code</label>
-                            <div>
-                                <span class="fa fa-archive"></span>
-                                <input type="numeric" name="postal" id="checkout-postal"
-                                    placeholder="Your postal code...">
-                            </div>
-                        </div>
-                        <div class="form-control-btn">
-                            <button>Submit</button>
-                        </div>
-                    </div>
-                    <!-- <div class="form-control checkbox-control">
-                        <input type="checkbox" name="checkbox" id="checkout-checkbox">
-                        <label for="checkout-checkbox">Save this information for next time</label>
-                    </div>
-                    <div class="form-control-btn">
-                        <button>Continue</button>
-                    </div> -->
-                </form>
-                
-            </section>
-            
-            
-            <% } else { %>
-                <% address.forEach(function(x){ %>
-                <section class="checkout-form">
-                    <form action="#!" method="get">
-                        <h6>Contact information</h6>
-                        <div class="form-control">
-                            <label for="checkout-email">E-mail</label>
-                            <div>
-                                <span class="fa fa-envelope"></span>
-                                <input type="email" id="checkout-email" name="checkout-email" value="<%= x.email %>">
-                            </div>
-                        </div>
-                        <div class="form-control">
-                            <label for="checkout-phone">Phone</label>
-                            <div>
-                                <span class="fa fa-phone"></span>
-                                <input type="tel" name="checkout-phone" id="checkout-phone" value="<%= x.phone %>">
-                            </div>
-                        </div>
-                        <br>
-                        <h6>Shipping address</h6>
-                        <div class="form-control">
-                            <label for="checkout-name">Full name</label>
-                            <div>
-                                <span class="fa fa-user-circle"></span>
-                                <input type="text" id="checkout-name" name="checkout-name" value="<%= x.fullName %>">
-                            </div>
-                        </div>
-                        <div class="form-control">
-                            <label for="checkout-address">Address</label>
-                            <div>
-                                <span class="fa fa-home"></span>
-                                <input type="text" name="checkout-address" id="checkout-address" value="<%= x.address %>">
-                            </div>
-                        </div>
-                        <div class="form-control">
-                            <label for="checkout-city">City</label>
-                            <div>
-                                <span class="fa fa-building"></span>
-                                <input type="text" name="checkout-city" id="checkout-city" value="<%= x.city %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-control">
-                                <label for="checkout-country">Country</label>
-                                <div>
-                                    <span class="fa fa-globe"></span>
-                                    <input type="text" name="country" id="checkout-country"
-                                        list="country-list" value="<%= x.country %>">
-                                    <datalist id="country-list">
-                                        <option value="India"></option>
-                                        <option value="USA"></option>
-                                        <option value="Russia"></option>
-                                        <option value="Japan"></option>
-                                        <option value="Egypt"></option>
-                                    </datalist>
-                                </div>
-                            </div>
-                            <div class="form-control">
-                                <label for="checkout-postal">Postal code</label>
-                                <div>
-                                    <span class="fa fa-archive"></span>
-                                    <input type="numeric" name="postal" id="checkout-postal" value="<%= x.pincode %>">
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </form>
-                </section>
-                <% }) %>
-                <% } %>
-
-
-                <div class="form-control-btn">                
-                     <button class="" onclick="view()">Add</button>
                 </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card mb-4">
+                        <div class="card-header py-3">
+                            <h3 class="mb-0" style="text-transform: uppercase;color: #6a6666;">
+                                Summary</h3>
+                        </div>
+                        <div class="card-body">
 
-
-
-                
-
-
-
-
-
-                    <section class="checkout-details">
-                        <div class="checkout-details-inner">
-                            <div class="checkout-lists">
-                                <form >
-                                    <input type="text" placeholder="Apply coupon" name="coupon" id="couponCode">
-                                    <button type="submit" onclick="applyCoupon()" class="btn btn-primary">Check</button>
-                                </form>
-                                
-                            </div>
-                            <div>
-                                <form   id="place-order" novalidate="novalidate">
+                            <ul class="list-group list-group-flush">
+                                <li
+                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                    <div>
+                                        <strong>Total amount</strong>
+                                        <strong>
+                                            <p class="mb-0">(including VAT)</p>
+                                        </strong>
+                                    </div>
+                                    <% if ( cartTotal.subTotal==0) { %>
+                                        <span><strong>RS: <%= cartTotal.total %>
+                                            </strong></span>
+                                        <% } else { %>
+                                            <span><strong>RS: <%= cartTotal.subTotal %>
+                                                </strong></span>
+                                            <% } %>
+                                </li>
+                                <li
+                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="paymentMethod" id="paynow"
-                                            value="Razorpay" >
+                                            value="Razorpay">
                                         <label class="form-check-label" for="paynow">
                                             Razorpay
                                         </label>
                                     </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" checked>
-                                        <label class="form-check-label" for="cod" >
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod"
+                                            value="cod" checked>
+                                        <label class="form-check-label" for="cod">
                                             Cash on delivery
                                         </label>
                                     </div>
-                
-                                    <br>
-
-                                    <div class="checkout-total">
-                                        <h4>Total: <b>
-                                                <%= cartTotal.total %>
-                                            </b></h4>
-                                    </div>
-                                    <button type="button" style="float: right;"
-                                        class="btn-success flex-c-m stext-101 cl0 size-116 bor14 p-lr-15 trans-04 pointer">
-                                        Place Order
-                                    </button>
-                                </form>
-
-                            </div>
-                          
-                        </div>
-                    </section>
-
-
-    </main>
-    
-    <main>
-        <section id="newAddress" style="display: none;">
-            <form action="/addAddress" method= "post">
-                <h6>Contact information</h6>
-                <div class="form-control">
-                    <label for="checkout-email">E-mail</label>
-                    <div>
-                        <span class="fa fa-envelope"></span>
-                        <input type="email" id="checkout-email" name="email"
-                            placeholder="Enter your email...">
-                    </div>
-                </div>
-                <div class="form-control">
-                    <label for="checkout-phone">Phone</label>
-                    <div>
-                        <span class="fa fa-phone"></span>
-                        <input type="tel" name="phone" id="checkout-phone"
-                            placeholder="Enter you phone...">
-                    </div>
-                </div>
-                <br>
-                <h6>Shipping address</h6>
-                <div class="form-control">
-                    <label for="checkout-name">Full name</label>
-                    <div>
-                        <span class="fa fa-user-circle"></span>
-                        <input type="text" id="checkout-name" name="name" placeholder="Enter you name...">
-                    </div>
-                </div>
-                <div class="form-control">
-                    <label for="checkout-address">Address</label>
-                    <div>
-                        <span class="fa fa-home"></span>
-                        <input type="text" name="address" id="checkout-address"
-                            placeholder="Your address...">
-                    </div>
-                </div>
-                <div class="form-control">
-                    <label for="checkout-city">City</label>
-                    <div>
-                        <span class="fa fa-building"></span>
-                        <input type="text" name="city" id="checkout-city" placeholder="Your city...">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-control">
-                        <label for="checkout-country">Country</label>
-                        <div>
-                            <span class="fa fa-globe"></span>
-                            <input type="text" name="country" id="checkout-country"
-                                placeholder="Your country..." list="country-list">
-                            <datalist id="country-list">
-                                <option value="India"></option>
-                                <option value="USA"></option>
-                                <option value="Russia"></option>
-                                <option value="Japan"></option>
-                                <option value="Egypt"></option>
-                            </datalist>
+                                </li>
+                            </ul>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                Place Order
+                            </button>
                         </div>
                     </div>
-                    <div class="form-control">
-                        <label for="checkout-postal">Postal code</label>
-                        <div>
-                            <span class="fa fa-archive"></span>
-                            <input type="numeric" name="postal" id="checkout-postal"
-                                placeholder="Your postal code...">
-                        </div>
-                    </div>
-                    <div class="form-control-btn">
-                        <button>Submit</button>
-                    </div>
                 </div>
-                <!-- <div class="form-control checkbox-control">
-                    <input type="checkbox" name="checkbox" id="checkout-checkbox">
-                    <label for="checkout-checkbox">Save this information for next time</label>
-                </div>
-                <div class="form-control-btn">
-                    <button>Continue</button>
-                </div> -->
             </form>
-        </section>
-    </main>
-   
-    
-    <footer>
-        <p>Created by - <a href="https://vetri-suriya.web.app/"><span>Vetri Suriya</span></a></p>
-    </footer>
-    
-</body>
+        </div>
+    </div>
 
-</html>
-<script>
-    $("#place-order").submit((e) => {
-        //     let paymentMethod = document.querySelector("#cod").checked
-    // ? "COD"
-    // : "Razorpay";
-        e.preventDefault()
-        $.ajax({
-            url: '/user_order',
-            method: 'post',
-            data: $('#place-order').serialize(),
-                success: (response) => {
-                    // alert('here')
-                    if (response.codSuccess) {
-                       
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Order Success',
-                            customClass: 'swal-wide',
-                            showConfirmButton: false,
-                            timer: 1000
-                        })
-                             window.location.replace('/order_success');
-                       
-                    } else {
-                       
-                        if (response.order == null) {
+    <%-include('../user/layout/user-footer-layout.ejs') %>
+
+        <script>
+
+            $("#place-order").submit((e) => {
+                e.preventDefault()
+                $.ajax({
+                    url: '/user_order',
+                    method: 'post',
+                    data: $('#place-order').serialize(),
+                    success: (response) => {
+                        if (response.codSuccess) {
                             Swal.fire({
-                                icon: 'error',
-                                title: 'Connection Failed',
-                                text: 'Please Check the Internet Connection!',
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Order Success',
                                 customClass: 'swal-wide',
+                                showConfirmButton: false,
+                                timer: 1000
                             })
+                                .then((result) => {
+                                    location.href = '/order_success'
+                                })
                         } else {
-                           
-                           
-                            razorpayPayment(response)
+                            if (response.order == null) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Connection Failed',
+                                    text: 'Please Check the Internet Connection!',
+                                    customClass: 'swal-wide',
+                                })
+                            } else {
+                                razorpayPayment(response)
+                            }
                         }
                     }
-                }
+                })
+
             })
-    
-        })
-    
-        function razorpayPayment(Payment) {
-            console.log(Payment)
-            
-            
-            var options = {
-                "key": "rzp_test_JNLKfIjgS0l3it", // Enter the Key ID generated from the Dashboard
-                "amount": Payment.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-                "currency": "INR",
-                "name": "Home Electron ",
-                "description": "Complete Your Transaction",
-                "image": "",
-                "order_id": Payment.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                "handler": function (response) {
-                    verifyPayment(response, Payment.order)
-                },
-                "prefill": {
-                    "name": Payment.user.name ,
-                    "email": Payment.user.email,
-                    "contact": Payment.user.phone
-                },
-                "notes": {
-                    "address": "Home electron Choose your electric Best for Home"
-                },
-                "theme": {
-                    "color": "#3399cc"
-                }
-            };
-            var rzp1 = new Razorpay(options);
-            rzp1.open();
-        }
-    
-       function verifyPayment(payment, order) {
-        // alert("here")
-            $.ajax({
-                url: '/verify_payment',
-                data: {
-                    payment: payment,
-                    orders: order
-                },
-                method: 'post',
-                success: (response) => {
-                    if (response.status) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Payment Success',
-                            showConfirmButton: false,
-                            customClass: 'swal-wide',
-                            timer: 1000
-                        }).then((result) => {
-                            location.href = '/order_success'
-                        })
-                    } else {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Payment Failed',
-                            showConfirmButton: false,
-                            customClass: 'swal-wide',
-                            timer: 1000
-                        }).then((result) => {
-                            location.reload()
-                        })
+
+            function razorpayPayment(Payment) {
+                console.log('razorpay');
+                console.log(Payment)
+                var options = {
+                    "key": "rzp_test_JNLKfIjgS0l3it", // Enter the Key ID generated from the Dashboard
+                    "amount": Payment.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    "currency": "INR",
+                    "name": "Sole ",
+                    "description": "Complete Your Transaction",
+                    "image": "",
+                    "order_id": Payment.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    "handler": function (response) {
+                        verifyPayment(response, Payment.order)
+                    },
+                    "prefill": {
+                        "name": Payment.user.name,
+                        "email": "sufiyanemcalicut@gmail.com",
+                        "contact": Payment.user.phone
+                    },
+                    "notes": {
+                        "address": "Home Sole Choose your electric Best for Home"
+                    },
+                    "theme": {
+                        "color": "#3399cc"
                     }
-                }
-            })
-        }
-    
-    
-    </script>
-
-
-
-
-<script>
-    function view(){
-        console.log('asdsh');
-        document.getElementById('newAddress').style.display="block"
-    }
-    async function applyCoupon() {
-        let coupon = document.getElementById('couponCode').value
-        window.alert(coupon)
-        $.ajax({
-            url: `/applyCoupon`,
-            data: {
-             couponCode : coupon
-            },
-            method: "post",
-            success: (response) => {
-                if (response.apply) {
-                    //   $("#cart").load(location.href + " #cart>*", "");
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: " Added ",
-                        customClass: "swal-wide",
-                        showConfirmButton: false,
-                        timer: 1000,
-                    });
-                }
-                else if (response.loginerr) {
-                    // window.location = "/signin";
-                    Swal.fire({
-                        position: "center",
-                        icon: "error",
-                        title: "please login first",
-                        customClass: "swal-wide",
-                        showConfirmButton: false,
-                        timer: 1000,
-                    });
-                } else if (response.added) {
-                    $("#productCard").load(location.href + " #productCard>*", "");
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Item added to cart",
-                        customClass: "swal-wide",
-                        showConfirmButton: false,
-                        timer: 1000,
-                    });
-                } else if (response.exist) {
-                    $("#productCard").load(location.href + " #productCard>*", "");
-                    Swal.fire({
-                        position: "right-end",
-                        icon: "success",
-                        title: " already exist",
-                        customClass: "swal-wide",
-                        showConfirmButton: false,
-                        timer: 1000,
-                    });
-                }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
             }
-        })
-    }
-</script>
 
+            function verifyPayment(payment, order) {
+                console.log(payment, 'paymentpaymentpayment');
+                console.log('hoo');
+                $.ajax({
+                    url: '/verify_payment',
+                    data: {
+                        payment: payment,
+                        orders: order
+                    },
+                    method: 'post',
+                    success: (response) => {
+                        console.log('pppppppppppp');
+                        console.log(response, 'ajaj');
+                        if (response.status) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Payment Success',
+                                showConfirmButton: false,
+                                customClass: 'swal-wide',
+                                timer: 1000
+                            }).then((result) => {
+                                location.href = '/order_success'
+                            })
+                        } else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Payment Failed',
+                                showConfirmButton: false,
+                                customClass: 'swal-wide',
+                                timer: 1000
+                            }).then((result) => {
+                                location.href = '/'
 
+                            })
+                        }
+                    }
+                })
+            }
+        </script>

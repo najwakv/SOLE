@@ -1,10 +1,13 @@
+/* eslint-disable no-undef */
+
+// eslint-disable-next-line no-unused-vars
 const mongoose = require('./configuration/connection');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const multer = require('multer');
-// require('dotenv').config()
+require('dotenv').config()
 
 //routers
 const homeRoute = require('./routes/user');
@@ -19,7 +22,6 @@ app.set('view engine','ejs');
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use(express.static(path.join(__dirname,'public')));
-
 
 app.use(express.json());
 app.use(express.urlencoded({extented:false}));

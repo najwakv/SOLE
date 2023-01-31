@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const mongoose = require('mongoose');
 const objectid = mongoose.Types.ObjectId
 const userSchema = new mongoose.Schema({
@@ -22,8 +23,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     status: {
-        type: String,
-        default:'Unblocked'
+        type: Boolean,
+        default: false
     },
     address : [{
         email: {
@@ -39,6 +40,10 @@ const userSchema = new mongoose.Schema({
             required: true
         },
         address: {
+            type: String,
+            required: true
+        },
+        state: {
             type: String,
             required: true
         },
