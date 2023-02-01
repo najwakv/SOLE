@@ -30,7 +30,7 @@ app.use(cookieParser());
 // Multer (file upload setup)
 const storage = multer.diskStorage({
     destination: (req,file,cb) => {
-        cb(null, "public/images/cardigans/");
+        cb(null, "public/images/Cardigans/");
     },
     filename: (req,file,cb) => {
         cb(null,file.fieldname +"_" + Date.now() + path.extname(file.originalname))
