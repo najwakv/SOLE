@@ -1,84 +1,102 @@
 <%- include('../admin/layout/admin-header-layout.ejs') -%>
 
-
-    <div class="col-lg">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title">Add Category</div>
-                <hr>
-                <form action="/admin/addcategory" method="post">
-
-                    <div class="form-group">
-                        <label for="input-4">Category</label>
-                        <input class="form-control" id="input-4" type="text" placeholder="Category" required
-                            name="category">
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success px-5"> Add</button>
-                    </div>
-                </form>
-            </div>
+<div class="col-lg">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">Add Category</div>
+      <hr />
+      <form action="/admin/addcategory" method="post">
+        <div class="form-group">
+          <label for="input-4">Category</label>
+          <input
+            class="form-control"
+            id="input-4"
+            type="text"
+            placeholder="Category"
+            required
+            name="category"
+          />
         </div>
 
-
-
-
-        <div class="card">
-            <div class="card-body ">
-                <div style="display: flex; justify-content: space-between;">
-                    <h5 class="card-title">All Categories</h5>
-                </div>
-                <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div> -->
-
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Category</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% category.forEach(function(x) { %>
-                                <tr>
-                                    <td>
-                                        <%= x.category %>
-                                    </td>
-                                    <td>
-                                        <form action="/admin/deletecategory/<%= x._id %>" method="post">
-                                            <button type="submit" class="btn  btn-danger" style="width: 75px; height: 38px;"
-                                                onclick="return confirm('Are you sure you want to delete ?')"><i
-                                                    class="bi bi-trash-fill"></i></button>
-                                        </form>
-                                        <!-- <br> -->
-                                    </td>
-                                    <td>
-                                        <% if(x.status){%>
-                                            <form action="/admin/categoryUnblock/<%= x._id %> " method="post">
-                                                <button type="submit" class="badge badge-danger" style="width: 75px; height: 38px;">
-                                                    List</button>
-                                            </form>
-                                            <%}else{%>
-                                                <form action="/admin/categoryBlock/<%= x._id %> " method="post">
-                                                    <button type="submit" class="badge badge-success"
-                                                        style="width: 78px; height: 38px;"> Unlist</button>
-                                                </form>
-                                            <%}%>
-                                        </td>
-                                        <td>
-                                        <!-- <br> -->
-                                        <a class="btn btn-primary" href="/admin/editcategorypage/<%= x._id %> "
-                                        role="button" style="width: 75px; height: 38px;"><i class="bi bi-pen-fill"></i></a> 
-                                    </td>
-                                </tr>
-                                <% }) %>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success px-5">Add</button>
         </div>
+      </form>
     </div>
+  </div>
 
-    <%- include('../admin/layout/admin-footer-layout.ejs') -%>
+  <div class="card">
+    <div class="card-body">
+      <div style="display: flex; justify-content: space-between">
+        <h5 class="card-title">All Categories</h5>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% category.forEach(function(x) { %>
+            <tr>
+              <td><%= x.category %></td>
+              <td>
+                <form action="/admin/deletecategory/<%= x._id %>" method="post">
+                  <button
+                    type="submit"
+                    class="btn btn-danger"
+                    style="width: 75px; height: 38px"
+                    onclick="return confirm('Are you sure you want to delete ?')"
+                  >
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
+                </form>
+              </td>
+              <td>
+                <% if(x.status){%>
+                <form
+                  action="/admin/categoryUnblock/<%= x._id %> "
+                  method="post"
+                >
+                  <button
+                    type="submit"
+                    class="badge badge-danger"
+                    style="width: 75px; height: 38px"
+                  >
+                    List
+                  </button>
+                </form>
+                <%}else{%>
+                <form action="/admin/categoryBlock/<%= x._id %> " method="post">
+                  <button
+                    type="submit"
+                    class="badge badge-success"
+                    style="width: 78px; height: 38px"
+                  >
+                    Unlist
+                  </button>
+                </form>
+                <%}%>
+              </td>
+              <td>
+                <a
+                  class="btn btn-primary"
+                  href="/admin/editcategorypage/<%= x._id %> "
+                  role="button"
+                  style="width: 75px; height: 38px"
+                  ><i class="bi bi-pen-fill"></i
+                ></a>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../admin/layout/admin-footer-layout.ejs') -%>

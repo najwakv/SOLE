@@ -1,69 +1,87 @@
 <%- include('../admin/layout/admin-header-layout.ejs') -%>
 
-    <div class="col-lg">
-        <div class="card">
-            <div class="card-body ">
-                <div style="display: flex; justify-content: space-between;">
-                    <h5 class="card-title">Testimony</h5>
-                    <div>
-                        <form action="/admin/addtestimonypage" method="get">
-                            <button class="btn btn-success me-md-2" type="submit">Add</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Index</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% testimony.forEach(function(x){ %>
-                                <tr>
-                                    <th scope="row">
-                                        
-                                    </th>
-
-                                    <td>
-                                        <%= x.name %>
-                                    </td>
-                                    <td>
-                                        <%= x.description %>
-                                    </td>
-                                    <td><img src='/images/Testimony/<%= x.image[0] %>' alt=""
-                                            style="height: 50px; width: 60px;">
-                                    </td>
-
-                                    <td><a class="btn btn-primary" href="/admin/edittestimonypage/<%= x._id %>"
-                                            role="button" style="width: 75px;"><i class="bi bi-pen-fill"></i></a>
-                                        <br>
-                                        <br>
-                                        <% console.log(x.status);if(x.status){%>
-                                            <form action="/admin/testimonyUnblock/<%= x._id %> " method="post">
-                                                <button type="submit" class="badge badge-danger"
-                                                    style="width: 75px; height: 38px;">
-                                                    List</button>
-                                            </form>
-                                            <%}else{%>
-                                                <form action="/admin/testimonyBlock/<%= x._id %>  " method="post">
-                                                    <button type="submit" class="badge badge-success"
-                                                        style="width: 75px; height: 38px;"> Unlist</button>
-                                                </form>
-                                                <%}%>
-                                    </td>
-                                </tr>
-                                <%})%>
-                                    
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<div class="col-lg">
+  <div class="card">
+    <div class="card-body">
+      <div style="display: flex; justify-content: space-between">
+        <h5 class="card-title">Testimony</h5>
+        <div>
+          <form action="/admin/addtestimonypage" method="get">
+            <button class="btn btn-success me-md-2" type="submit">Add</button>
+          </form>
         </div>
-    </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Index</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Image</th>
+              <th scope="col">ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% testimony.forEach(function(x){ %>
+            <tr>
+              <th scope="row"></th>
 
-    <%- include('../admin/layout/admin-footer-layout.ejs') -%>
+              <td><%= x.name %></td>
+              <td><%= x.description %></td>
+              <td>
+                <img
+                  src="/images/Testimony/<%= x.image[0] %>"
+                  alt=""
+                  style="height: 50px; width: 60px"
+                />
+              </td>
+
+              <td>
+                <a
+                  class="btn btn-primary"
+                  href="/admin/edittestimonypage/<%= x._id %>"
+                  role="button"
+                  style="width: 75px"
+                  ><i class="bi bi-pen-fill"></i
+                ></a>
+                <br />
+                <br />
+                <% console.log(x.status);if(x.status){%>
+                <form
+                  action="/admin/testimonyUnblock/<%= x._id %> "
+                  method="post"
+                >
+                  <button
+                    type="submit"
+                    class="badge badge-danger"
+                    style="width: 75px; height: 38px"
+                  >
+                    List
+                  </button>
+                </form>
+                <%}else{%>
+                <form
+                  action="/admin/testimonyBlock/<%= x._id %>  "
+                  method="post"
+                >
+                  <button
+                    type="submit"
+                    class="badge badge-success"
+                    style="width: 75px; height: 38px"
+                  >
+                    Unlist
+                  </button>
+                </form>
+                <%}%>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../admin/layout/admin-footer-layout.ejs') -%>
