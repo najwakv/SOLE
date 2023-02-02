@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
 const bcrypt = require('bcrypt');
@@ -20,6 +21,7 @@ const userModel = require('../models/userModel');
 const Objectid = mongoose.Types.ObjectId
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
+const { nextTick } = require('process');
 
 
 //********************************** START OTP *******************************************//
@@ -56,18 +58,21 @@ var instance = new Razorpay({
 });
 
 module.exports = {
-    //User home page 
+    //User home page
+   
     home: async (req, res) => {
-        const products = await ProductModel.find({ status: false }).sort({ date: -1 }).limit(6)
-        const banners = await BannerModel.find({ status: false })
-        const testimony = await TestimonyModel.find({ status: false })
-        const category = await CategoryModel.find({ status: false })
-        if (req.session.userLogin) {
-            res.render("user/home", { login: true, user: req.session.user, products, banners, testimony, category });
-        } else {
-            res.render('user/home', { login: false, products, banners, testimony, category });
-        }
+        
+            const products = await ProductModel.find({ status: false }).sort({ date: -1 }).limit(6)
+            const banners = await BannerModel.find({ status: false })
+            const testimony = await TestimonyModel.find({ status: false })
+            const category = await CategoryModel.find({ status: false })
+            if (req.session.userLogin) {
+                res.render("user/home", { login: true, user: req.session.user, products, banners, testimony, category });
+            } else {
+                res.render('user/home', { login: false, products, banners, testimony, category });
+            }
     },
+    
     //User signin page
     signin: (req, res) => {
         if (!req.session.userLogin) {

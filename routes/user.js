@@ -50,4 +50,10 @@ router.post('/user_order', controller.order);
 router.post('/verify_payment',controller.verifyPayment); 
 
 
+
+router.use(function (req, res, next) {
+    // eslint-disable-next-line no-undef
+    next(createError(404));
+});
+
 module.exports = router

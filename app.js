@@ -40,6 +40,8 @@ const storage = multer.diskStorage({
 //using multer
 app.use(multer({storage: storage}).array("image",10));
 
+
+
 //session
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
