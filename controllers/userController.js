@@ -420,45 +420,45 @@ module.exports = {
         const products = await ProductModel.find({ $and: [{ status: false }, { price: { $lte: 99, $gte: 0 } }] })
         const category = await CategoryModel.find({ status: false })
         if (req.session.userLogin) {
-            res.render('user/allProduct', { login: true, user: req.session.user, category, products })
+            res.render('user/filter', { login: true, user: req.session.user, category, products })
         } else {
-            res.render('user/allProduct', { login: false, category, products })
+            res.render('user/filter', { login: false, category, products })
         }
     },
     filterTwo: async (req, res) => {
         const products = await ProductModel.find({ $and: [{ status: false }, { price: { $lte: 499, $gte: 100 } }] })
         const category = await CategoryModel.find({ status: false })
         if (req.session.userLogin) {
-            res.render('user/allProduct', { login: true, user: req.session.user, category, products })
+            res.render('user/filter', { login: true, user: req.session.user, category, products })
         } else {
-            res.render('user/allProduct', { login: false, category, products })
+            res.render('user/filter', { login: false, category, products })
         }
     },
     filterThree: async (req, res) => {
         const products = await ProductModel.find({ $and: [{ status: false }, { price: { $lte: 999, $gte: 500 } }] })
         const category = await CategoryModel.find({ status: false })
         if (req.session.userLogin) {
-            res.render('user/allProduct', { login: true, user: req.session.user, category, products })
+            res.render('user/filter', { login: true, user: req.session.user, category, products })
         } else {
-            res.render('user/allProduct', { login: false, category, products })
+            res.render('user/filter', { login: false, category, products })
         }
     },
     filterFour: async (req, res) => {
         const products = await ProductModel.find({ $and: [{ status: false }, { price: { $lte: 1999, $gte: 1000 } }] })
         const category = await CategoryModel.find({ status: false })
         if (req.session.userLogin) {
-            res.render('user/allProduct', { login: true, user: req.session.user, category, products })
+            res.render('user/filter', { login: true, user: req.session.user, category, products })
         } else {
-            res.render('user/allProduct', { login: false, category, products })
+            res.render('user/filter', { login: false, category, products })
         }
     },
     filterFive: async (req, res) => {
         const products = await ProductModel.find({ $and: [{ status: false }, { price: { $lte: 3999, $gte: 2000 } }] })
         const category = await CategoryModel.find({ status: false })
         if (req.session.userLogin) {
-            res.render('user/allProduct', { login: true, user: req.session.user, category, products })
+            res.render('user/filter', { login: true, user: req.session.user, category, products })
         } else {
-            res.render('user/allProduct', { login: false, category, products })
+            res.render('user/filter', { login: false, category, products })
         }
     },
     //********************************** SEARCH-SORT-FILTER END ******************************//
