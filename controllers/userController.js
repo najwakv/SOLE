@@ -61,7 +61,7 @@ module.exports = {
     //User home page
    
     home: async (req, res) => {
-        
+        try{
             const products = await ProductModel.find({ status: false }).sort({ date: -1 }).limit(6)
             const banners = await BannerModel.find({ status: false })
             const testimony = await TestimonyModel.find({ status: false })
@@ -71,6 +71,9 @@ module.exports = {
             } else {
                 res.render('user/home', { login: false, products, banners, testimony, category });
             }
+        } catch (error) {
+            res.render('error/error')
+        }
     },
     
     //User signin page
@@ -823,15 +826,15 @@ module.exports = {
             const orderId = data['orders[receipt]'];
 
             if (hmac == data.payment.razorpay_signature) {
-                // eslint-disable-next-line no-undef
-                await OrderModel.updateOne(
-                    { _id: orderId },
-                    {
-                        $set: {
-                            orderStatus: "Placed",
-                        },
-                    }
-                );
+                // // eslint-disable-next-line no-undef
+                // await OrderModel.updateOne(
+                //     { _id: orderId },
+                //     {
+                //         $set: {
+                //             orderStatus: "Placed",
+                //         },
+                //     }
+                // );
                 res.json({ status: true });
             } else {
                 res.json({ status: false });
@@ -843,6 +846,15 @@ module.exports = {
     //Order success
     orderSuccess: async (req, res) => {
         if (req.session.userLogin) {
+             // eslint-disable-next-line no-undef
+             await OrderModel.updateOne(
+                { _id: orderId },
+                {
+                    $set: {
+                        orderStatus: "Placed",
+                    },
+                }
+            );
             res.redirect('/')
         } else {
             res.redirect('/login')
