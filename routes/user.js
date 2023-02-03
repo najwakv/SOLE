@@ -9,12 +9,12 @@ router.get('/signin', controller.signin);
 router.get('/signup',controller.signup);
 router.get('/logout', controller.logout);
 router.get('/forgotPassword', controller.forgotPassword);
-router.get('/allProductPage', controller.allProductPage);
+router.get('/allProductPage', userSession.userBlocked, controller.allProductPage);
 router.get('/categoryProductsPage/:id/:category', controller.categoryproductpage);
 router.get('/profile', userSession.userBlocked, controller.profile);
-router.get('/editprofilepage/:id',controller.editprofilepage);
+router.get('/editprofilepage/:id', userSession.userBlocked,controller.editprofilepage);
 router.get('/search', controller.search);
-router.get('/singleProduct/:id',controller.singleProductpage);
+router.get('/singleProduct/:id', userSession.userBlocked,controller.singleProductpage);
 router.get('/sortHigh', controller.sortHighToLow);
 router.get('/sortLow', controller.sortLowToHigh);
 router.get('/0To99', controller.filterOne);
@@ -22,11 +22,11 @@ router.get('/100To499', controller.filterTwo);
 router.get('/500To999', controller.filterThree);
 router.get('/1000To1999', controller.filterFour);
 router.get('/2000To3999', controller.filterFive);
-router.get('/wishlist', controller.wishlistPage);
-router.get('/cart', controller.cartPage);
-router.get('/checkout', controller.checkoutPage);
-router.get('/order_success',controller.orderSuccess);
-router.get('/addAddress', controller.addAddressPage)
+router.get('/wishlist', userSession.userBlocked, controller.wishlistPage);
+router.get('/cart', userSession.userBlocked, controller.cartPage);
+router.get('/checkout', userSession.userBlocked, controller.checkoutPage);
+router.get('/order_success', userSession.userBlocked,controller.orderSuccess);
+router.get('/addAddress', userSession.userBlocked, controller.addAddressPage)
 
 //post
 router.post('/otp', controller.otp);

@@ -41,9 +41,13 @@ module.exports = {
     //********************************** SIGNIN END ***************************************//
 
     //ADMIN HOME PAGE
-    home: (req, res) => {
+    home: async(req, res) => {
         if (req.session.adminLogin) {
-            res.render('admin/home');
+            const users = await UserModel.find().countDocuments()
+            const products = await ProductModel.find().countDocuments()
+            
+            const orders = await OrderModel.find().countDocuments()
+            res.render('admin/home', { users, products,  orders });
         }
     },
     //****************************** BANNER MANAGEMENT START ****************************//
@@ -472,6 +476,7 @@ module.exports = {
     //View order
     allOrder: async(req,res) =>{
         const orders = await OrderModel.find({});
+        console.log(orders.items);
         res.render('admin/order', { orders, index: 1, admin: req.session.admin })
     },
     //Order status
