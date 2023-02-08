@@ -203,7 +203,7 @@ module.exports = {
 
     //Forgot password page
     forgotPassword: (req, res) => {
-        res.render('user/forgotPassword');
+        res.render('user/forgotpassword');
     },
     //Reset password
     resetPassword: async (req, res) => {
