@@ -38,13 +38,13 @@
                                                                 <strong>
                                                                     <p>
                                                                         <%= x.fullName %>,
-                                                                        <%= x.email %> ,
-                                                                        <%= x.address %>,
-                                                                        <%= x.city %>,
-                                                                        <%= x.state %>,
-                                                                        <%= x.pincode %>,
-                                                                        <%= x.country %>,
-                                                                        <%= x.phone %>
+                                                                            <%= x.email %> ,
+                                                                                <%= x.address %>,
+                                                                                    <%= x.city %>,
+                                                                                        <%= x.state %>,
+                                                                                            <%= x.pincode %>,
+                                                                                                <%= x.country %>,
+                                                                                                    <%= x.phone %>
                                                                     </p>
                                                                 </strong>
                                                 </div>
@@ -119,10 +119,15 @@
     </div>
 
     <%-include('../user/layout/user-footer-layout.ejs') %>
+    <!-- <script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+    </script> -->
 
         <script>
 
             $("#place-order").submit((e) => {
+                var orderId;
                 e.preventDefault()
                 $.ajax({
                     url: '/user_order',
@@ -150,6 +155,7 @@
                                     customClass: 'swal-wide',
                                 })
                             } else {
+                                orderId=response.orderId._id
                                 razorpayPayment(response)
                             }
                         }
@@ -159,8 +165,6 @@
             })
 
             function razorpayPayment(Payment) {
-                console.log('razorpay');
-                console.log(Payment)
                 var options = {
                     "key": "rzp_test_JNLKfIjgS0l3it", // Enter the Key ID generated from the Dashboard
                     "amount": Payment.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -169,7 +173,9 @@
                     "description": "Complete Your Transaction",
                     "image": "",
                     "order_id": Payment.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                    "handler": function (response) {
+                    handler: function (response,) {
+                        userId=response.order_id
+                        console.log(response, 'ajnas');
                         verifyPayment(response, Payment.order)
                     },
                     "prefill": {
@@ -185,12 +191,41 @@
                     }
                 };
                 var rzp1 = new Razorpay(options);
+                rzp1.on("payment.failed", function (response) {
+                    paymentFailed(response,Payment);
+                });
                 rzp1.open();
             }
 
+            function paymentFailed(response,order) {
+                $.ajax({
+                    url: "/paymentFailed",
+                    data: {
+                        response,
+                        order
+                    },
+                    method: "post",
+                    success: (response) => {
+                        if (response.status) {
+                            Swal.fire({
+                                title: "Payment Failed !",
+                                icon: "error",
+                                showDenyButton: false,
+                                toast: true,
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    location.href = "/";
+                                } else if (result.isDenied) {
+                                    location.href = "/";
+                                }
+                            });
+                        }
+                    },
+                });
+            }
+
             function verifyPayment(payment, order) {
-                console.log(payment, 'paymentpaymentpayment');
-                console.log('hoo');
                 $.ajax({
                     url: '/verify_payment',
                     data: {
@@ -199,8 +234,6 @@
                     },
                     method: 'post',
                     success: (response) => {
-                        console.log('pppppppppppp');
-                        console.log(response, 'ajaj');
                         if (response.status) {
                             Swal.fire({
                                 position: 'center',

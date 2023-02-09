@@ -476,7 +476,7 @@ module.exports = {
     //View order
     allOrder: async(req,res) =>{
         const orders = await OrderModel.find({});
-        console.log(orders);
+        // console.log(orders);
         res.render('admin/order', { orders, index: 1, admin: req.session.admin })
     },
     //Order status

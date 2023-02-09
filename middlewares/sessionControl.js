@@ -1,6 +1,13 @@
 const UserModel = require('../models/userModel')
 
 module.exports = {
+    adminSession: (req, res, next) => {
+        if (req.session.adminLogin) {
+            next()
+        } else {
+            res.redirect('/admin')
+        }
+    },
     userBlocked: async (req, res, next) => {
         let id = req.session.userId
         if (id) {

@@ -61,6 +61,8 @@ module.exports = {
     //User home page
    
     home: async (req, res) => {
+        
+        
         try{
             const products = await ProductModel.find({ status: false }).sort({ date: -1 }).limit(6)
             const banners = await BannerModel.find({ status: false })
@@ -765,11 +767,12 @@ module.exports = {
     },
     //Order
     order: async (req, res) => {
+        console.log('entered order');
         let userId = req.session.userId
         // eslint-disable-next-line no-unused-vars
         let logged = req.session.loginStatus
         let payment = req.body.paymentMethod
-        let address = req.body.address
+        let address = req.body.address 
         console.log(address);
         let user = await userModel.findOne({ _id: userId })
         let deliveryAddress = user.address[address]
@@ -793,6 +796,7 @@ module.exports = {
         // eslint-disable-next-line no-undef
         const orderId = await OrderModel.create(userOrder);
         if (payment == "Razorpay") {
+            console.log('entered razorpay');
             var options = {
                 amount: amount * 100, // amount in the smallest currency unit
                 currency: "INR",
@@ -802,10 +806,11 @@ module.exports = {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.json({ order, userOrder, user })
+                    res.json({ order, userOrder, user ,orderId})
                 }
             });
         } else if (payment == 'cod') {
+            console.log('enetred cod');
             await CartModel.findOneAndUpdate({ userId: userId }, { $set: { items: [], total: 0 } })
             res.json({ codSuccess: true })
         }
@@ -817,7 +822,7 @@ module.exports = {
             const userId = req.session.userId;
             await cartModel.findOneAndUpdate({ userId: userId }, { $set: { items: [], total: 0 } })
             let data = req.body
-            console.log(data);
+            // console.log(data);
             console.log(data['payment[razorpay_order_id]'], 'payment.razorpay_order_id');
             let hmac = crypto
                 .createHmac("sha256", "gBBWwEBxMziyqovi7vJz27Bo")
@@ -826,15 +831,15 @@ module.exports = {
             const orderId = data['orders[receipt]'];
 
             if (hmac == data.payment.razorpay_signature) {
-                // // eslint-disable-next-line no-undef
-                // await OrderModel.updateOne(
-                //     { _id: orderId },
-                //     {
-                //         $set: {
-                //             orderStatus: "Placed",
-                //         },
-                //     }
-                // );
+                // eslint-disable-next-line no-undef
+                await OrderModel.updateOne(
+                    { _id: orderId },
+                    {
+                        $set: {
+                            orderStatus: "Placed",
+                        },
+                    }
+                );
                 res.json({ status: true });
             } else {
                 res.json({ status: false });
@@ -843,18 +848,14 @@ module.exports = {
             console.log(error.message);
         }
     },
+
+    paymentFailed: async(req,res) =>{
+        let orderId =req.body.order.order.receipt
+        const order = await OrderModel.findOneAndDelete( {_id:orderId} )        
+    },
     //Order success
     orderSuccess: async (req, res) => {
-        if (req.session.userLogin) {
-             // eslint-disable-next-line no-undef
-             await OrderModel.updateOne(
-                { _id: orderId },
-                {
-                    $set: {
-                        orderStatus: "Placed",
-                    },
-                }
-            );
+        if (req.session.userLogin) {             
             res.redirect('/')
         } else {
             res.redirect('/login')
@@ -862,6 +863,3 @@ module.exports = {
     },
     //********************************** CHECKOUT END ***************************************//
 }
-
-
-

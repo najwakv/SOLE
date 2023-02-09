@@ -14,7 +14,9 @@
               <th scope="col">Index</th>
               <th scope="col">Customer Name</th>
               <th scope="col">Address</th>
+              <th scope="col">Price</th>
               <th scope="col">Date</th>
+              <th scope="col">Payment method</th>
               <th scope="col">Order Status</th>
             </tr>
           </thead>
@@ -25,8 +27,9 @@
               <th scope="row"><%= index++ %></th>
               <td><%= y.address.fullName %></td>
               <td><%= y.address.address %></td>
+              <td><%= y.totalAmount %></td>
               <td><%=y.updatedAt.toLocaleDateString()%></td>
-
+              <td><%= y.paymentMethod %></td>
               <td>
                 <select
                   id="OStatus<%= index%>"
