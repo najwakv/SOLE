@@ -42,13 +42,10 @@ module.exports = {
 
     //ADMIN HOME PAGE
     home: async(req, res) => {
-        if (req.session.adminLogin) {
             const users = await UserModel.find().countDocuments()
-            const products = await ProductModel.find().countDocuments()
-            
+            const products = await ProductModel.find().countDocuments() 
             const orders = await OrderModel.find().countDocuments()
             res.render('admin/home', { users, products,  orders });
-        }
     },
     //****************************** BANNER MANAGEMENT START ****************************//
 
@@ -100,11 +97,9 @@ module.exports = {
     },
     //Edit Banner
     editBannerPage: async(req,res) => {
-        if (req.session.adminLogin) {
             const id = req.params.id
             let banner = await BannerModel.findOne({ _id: id });
             res.render('admin/editBanner', { banner, admin: req.session.admin })
-        }
     },
     //Update Banner
     updateBanner: async (req, res) => {
@@ -175,9 +170,7 @@ module.exports = {
     //Add product page
     addproductpage: async (req, res) => {
         const category = await CategoryModel.find()
-        if (req.session.adminLogin) {
             res.render('admin/addProduct', { category,admin: req.session.admin })
-        }
     },
     //Add product
     addproduct: async (req, res) => {
@@ -266,8 +259,13 @@ module.exports = {
     //Add category
     addCategory: async (req, res) => {
         const category = req.body.category
-        const newCategory = CategoryModel({ category });
-        newCategory.save().then(res.redirect('/admin/category'));
+        const existCategory = await CategoryModel.findOne({ category:category })
+        if(existCategory != null){
+            res.redirect('/admin/category')
+        } else {
+            const newCategory = CategoryModel({ category });
+            newCategory.save().then(res.redirect('/admin/category'));
+        }
     },
     //Delete category
     deleteCategory: async (req, res) => {
